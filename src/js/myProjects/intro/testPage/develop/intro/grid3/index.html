@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas Drawing</title>
+        <style>
+            canvas {border: 1px solid black;}
+        </style>
+    </head>
+    <body> 
+<script type="module" src="./app.js"></script>
+<style>
+    /* canvas {width: 100%;height: 100%;} */
+    canvas {margin: 0 auto; display: block;}
+    body {height: 100vh;}
+</style>
+</body>
+</html>     
