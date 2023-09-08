@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 
 import LogoApp from '../../js/intro_App'
 import logoImg from '../../assets/img/intro.jpg';
-// import './App.css';
+import '../../js/myProjects/intro/App.css';
+
+import Container from 'react-bootstrap/Container';
+
 class LoadingApp extends React.Component {
     componentDidMount() {
         // 스크립트 코드를 이 곳에 작성합니다.
@@ -44,9 +47,11 @@ class LoadingApp extends React.Component {
     render() {
         return (
             <div className="logoBox transitionBox">
-                <Link to="/about"><div className="logo_main"></div></Link>
-                <div className="logo_outline"></div>
-                <div className="logo_background"></div>
+                <Container>
+                    <Link to="/about"><div className="logo_main"></div></Link>
+                    <div className="logo_outline"></div>
+                    <div className="logo_background"></div>
+                </Container>
             </div>
         );
     }
