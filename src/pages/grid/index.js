@@ -1,10 +1,10 @@
 import React from 'react';
-import '../../js/myProjects/grid/App.css';
+import './App.css';
 import GridSet, {Change_color, Gird_Motion} from '../../js/myProjects/grid/Grid_App'
 
-import GridImg1 from '../../js/myProjects/grid/GridImg1.png';
-import GridImg2 from '../../js/myProjects/grid/GridImg2.png';
-import GridImg3 from '../../js/myProjects/grid/GridImg3.png';
+import GridImg1 from './img/GridImg1.png';
+import GridImg2 from './img/GridImg2.png';
+import GridImg3 from './img/GridImg3.png';
 
 
 

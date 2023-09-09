@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 import LogoApp from '../../js/intro_App'
-import logoImg from '../../assets/img/intro.jpg';
-import '../../js/myProjects/intro/App.css';
+import logoImg from './intro.jpg';
+import './App.css';
 
 import Container from 'react-bootstrap/Container';
 
