@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Button, ListGroupItem } from 'react-bootstrap';
+import { ListGroupItem } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,7 +12,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 class TestApp extends React.Component {
     render() {
         return (
-            <Container className="transitionBox">
+            <Container className="about transitionBox bg-white">
                 <Stack gap={5}>
                     <div className="nameWrap">
                         <h3>남민우</h3>

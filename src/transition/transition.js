@@ -9,7 +9,7 @@ import About from "../pages/about/index";
 
 
 const Transition1 = () => {
-    const delay = 1500;
+    const delay = 3000;
 
     const IntroPage = <IntroApp />;
     const AboutPage = <About />;
