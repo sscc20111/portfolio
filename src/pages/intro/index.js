@@ -9,11 +9,11 @@ import logoImg from './intro.jpg';
 
 import Container from 'react-bootstrap/Container';
 
-const introOut = () => {
-    gsap.to('.logo_main', {scale: 0, duration:0.5, delay:0.2,  ease: Power3.easeInOut})
-    gsap.to('.logo_outline', {scale: 0, duration:0.5, delay:0.6,  ease: Power3.easeInOut})
-    gsap.to('.logo_background', {scale: 0, duration:0.5, delay:0.4,  ease: Power3.easeInOut})
-}
+// const introOut = () => {
+//     gsap.to('.logo_main', {scale: 0, duration:0.5, delay:0.2,  ease: Power3.easeInOut})
+//     gsap.to('.logo_outline', {scale: 0, duration:0.5, delay:0.6,  ease: Power3.easeInOut})
+//     gsap.to('.logo_background', {scale: 0, duration:0.5, delay:0.4,  ease: Power3.easeInOut})
+// }
 
 class LoadingApp extends React.Component {
     constructor() {
@@ -56,7 +56,7 @@ class LoadingApp extends React.Component {
             },
             speed : 1000
         });
-        
+        console.log(this.background)
     this.introIn()
     
     // 뒤로 가기 동작을 감지하는 이벤트 리스너를 추가합니다.
@@ -86,13 +86,19 @@ class LoadingApp extends React.Component {
         gsap.to(this.background, {scale: 1, duration:0.5, delay:0.2,  ease: Power1.easeInOut})
     }
 
+    introOut() {
+        gsap.to(this.main, {scale: 0, duration:0.5, delay:0.2,  ease: Power3.easeInOut})
+        gsap.to(this.outline, {scale: 0, duration:0.5, delay:0.6,  ease: Power3.easeInOut})
+        gsap.to(this.background, {scale: 0, duration:0.5, delay:0.4,  ease: Power3.easeInOut})
+    }
+    
 
 
     render() {
         return (
             <div className="introBox transitionBox" style={{width: '100vw', height: '100vh'}}>
                 <Container className='w-100 h-100 position-relative'>
-                    <Link className="logo_main position-absolute top-50 start-50 z-3" to="/about" onClick={introOut}></Link>
+                    <Link className="logo_main position-absolute top-50 start-50 z-3" to="/about" onClick={() => this.introOut()}></Link>
                     <div className="logo_outline position-absolute top-50 start-50 z-2"></div>
                     <div className="logo_background position-absolute top-50 start-50 z-1"></div>
                 </Container>

@@ -17,7 +17,7 @@ class TestApp extends React.Component {
                     <div className="nameWrap">
                         <h3>남민우</h3>
                     </div>
-                    <div className="introWrap mw-75 fs-6 fw-lighter lh-base" style={{width:'820px'}}>
+                    <div className="introWrap mw-75 fs-6 fw-lighter lh-base" style={{maxWidth:'820px', width:'100%'}}>
                         <p>
                             안녕하세요, 프론트엔드 개발자 남민우입니다.
                         </p>
