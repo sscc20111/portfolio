@@ -9,7 +9,8 @@ import About from "../pages/about/index";
 
 
 const Transition1 = () => {
-    const delay = 1500;
+    
+    const delay = 3000;
 
     const IntroPage = <IntroApp />;
     const AboutPage = <About />;
@@ -19,7 +20,7 @@ const Transition1 = () => {
     const location = useLocation();
 
     return (
-    <TransitionGroup className="transition-group">
+    <TransitionGroup className="transition-group" onChange={() => {console.log('test')}}>
         <CSSTransition key={location.pathname} classNames="fade" timeout={delay}>
         <Routes location={location} >
             <Route path="/" element={IntroPage} />

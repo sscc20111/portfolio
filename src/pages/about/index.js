@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Button, ListGroupItem } from 'react-bootstrap';
+import { ListGroupItem } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,12 +12,12 @@ import ListGroup from 'react-bootstrap/ListGroup';
 class TestApp extends React.Component {
     render() {
         return (
-            <Container className="transitionBox">
+            <Container className="about transitionBox bg-white">
                 <Stack gap={5}>
                     <div className="nameWrap">
                         <h3>남민우</h3>
                     </div>
-                    <div className="introWrap mw-75 fs-6 fw-lighter lh-base" style={{width:'820px'}}>
+                    <div className="introWrap mw-75 fs-6 fw-lighter lh-base" style={{maxWidth:'820px', width:'100%'}}>
                         <p>
                             안녕하세요, 프론트엔드 개발자 남민우입니다.
                         </p>
