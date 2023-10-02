@@ -12,7 +12,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 class TestApp extends React.Component {
     render() {
         return (
-            <Container className="about transitionBox bg-white">
+            <Container className="about transitionBox bg-white" style={{paddingTop:'100px'}}>
                 <Stack gap={5}>
                     <div className="nameWrap">
                         <h3>남민우</h3>
