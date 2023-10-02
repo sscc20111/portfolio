@@ -4,3 +4,8 @@
 .transitionBox.introBox.fade-exit {background: #e9e6df00;}
 .transitionBox.introBox.fade-enter {z-index: 100; background: #E9E6DF;}
 .transitionBox.fade-enter {z-index: 98;}
+
+
+.header {position: fixed; z-index: 9999;}
+.header .logo_header,
+.header .logo_line {transform: translate(-50%,-50%);}
