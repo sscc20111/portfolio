@@ -37,8 +37,8 @@ const headerLoad = () => {
 
 const introIn = () => {
     //gsap-scale동작시 translate오류 리셋
-    gsap.to(".logo_header", {xPercent: -50, yPercent: -50, duration:0.1})
-    gsap.to('.logo_line', {xPercent: -50, yPercent: -50, duration:0.1})
+    gsap.set(".logo_header", {xPercent: -50, yPercent: -50})
+    gsap.set('.logo_line', {xPercent: -50, yPercent: -50})
 
     gsap.to(".logo_header", {scale: 1, duration:0.5, delay:0.6,  ease: Power1.easeInOut})
     gsap.to('.logo_line', {scale: 1, duration:0.5, delay:0.9,  ease: Power1.easeInOut})
@@ -55,7 +55,7 @@ const Header = () => {
                 introIn()
             }
         }
-        
+        console.log(location.pathname)
         // 현재 경로를 이전 경로로 업데이트
         setPrevLocation(location);
     }, [location]);

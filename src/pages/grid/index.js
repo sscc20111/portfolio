@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import GridSet, {Change_color, Gird_Motion} from '../../js/myProjects/grid/Grid_App'
+import SmoothScroll from "../../component/SmoothScroll";
 
 import GridImg1 from './img/GridImg1.png';
 import GridImg2 from './img/GridImg2.png';
@@ -10,6 +11,7 @@ import GridImg3 from './img/GridImg3.png';
 
 class GridPage extends React.Component {
   componentDidMount() {
+    SmoothScroll(".scroll-wrapper", ".transition-group", 1);
     new GridSet();
     // const ChangeColor = new Change_color(); //menu 배경색 선택.js
     // ChangeColor.TweenMax('#B89569'); //menu 배경색 선택.js

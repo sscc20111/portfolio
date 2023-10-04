@@ -52,9 +52,9 @@ const introSet = (main, outline, background) => {
 
 const introIn = (main, outline, background) => {
     //gsap-scale동작시 translate오류 리셋
-    gsap.to(main, {xPercent: -50, yPercent: -50, duration:0.1})
-    gsap.to(outline, {xPercent: -50, yPercent: -50, duration:0.1})
-    gsap.to(background, {xPercent: -50, yPercent: -50, duration:0.1})
+    gsap.set(main, {xPercent: -50, yPercent: -50, scale:0})
+    gsap.set(outline, {xPercent: -50, yPercent: -50, scale:0})
+    gsap.set(background, {xPercent: -50, yPercent: -50, scale:0})
 
     gsap.to(main, {scale: 1, duration:0.5, delay:0.6,  ease: Power1.easeInOut})
     gsap.to(outline, {scale: 1, duration:0.5, delay:0.9,  ease: Power1.easeInOut})
@@ -81,12 +81,13 @@ const IntroApp = () => {
                 }, 100);
             }
         }
-    });
+    },[]);
     useEffect(() => {
         if(location.pathname === '/'){
             if(logoElement){
                 console.log(location.pathname)
                 setTimeout(() => {
+                    introSet('.logo_main','.logo_outline', '.logo_background')
                     introIn('.logo_main','.logo_outline', '.logo_background')
                 }, 100);
             }
