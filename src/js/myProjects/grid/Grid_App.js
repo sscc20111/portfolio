@@ -92,11 +92,11 @@ const Random = () => {
     return {width,height,Delay}
 }
 const Gird_Motion = () => {
-    const delays = Random().Delay(1,2,6);// (x,y,z) z개의 x.0 ~ y.0 랜덤 딜레이값
     let Count = 0;
-
+    
     const Constset = () => {Count += 1;}
     const MotionIn = () => {
+        const delays = Random().Delay(1,2,6);// (x,y,z) z개의 x.0 ~ y.0 랜덤 딜레이값
         setTimeout(() => {
             document.querySelector('.gridBox').classList.add('MotionGo');
         }, 600);
@@ -113,13 +113,16 @@ const Gird_Motion = () => {
         gsap.to(girdMotion[5], {right:'15%', bottom:'5%', duration:0.3, delay:delays[5], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);Constset();}})
     }
 
-    const MotionOut = (target) => {
+    const MotionOut = () => {
+        const girdMotion = document.querySelectorAll('.gridBox .item .contBox');
+        const delays = Random().Delay(0,1,6);// (x,y,z) z개의 x.0 ~ y.0 랜덤 딜레이값
+        const target = document.querySelectorAll('.gridBox .item .textBox');
 
         gsap.to(target, {duration:0.6, opacity:0, filter: 'blur(20px)', ease:Power3.easeOut, onComplete: () => {target.forEach(element => {element.style.visibility = 'hidden'})}});
+        
         setTimeout(() => {
             document.querySelector('.gridBox').classList.remove('MotionGo');
         }, 1400);
-        const girdMotion = document.querySelectorAll('.gridBox .item .contBox');
 
         gsap.to(girdMotion[0], {left:'0%',               duration:0.3, delay:delays[0], ease: Power2.easeInOut, onComplete: () => {girdMotion[0].classList.remove('Motion1_complet')}});
         gsap.to(girdMotion[1], {bottom:'0%',             duration:0.3, delay:delays[1], ease: Power2.easeInOut});
@@ -145,42 +148,27 @@ const text_Motion = () => {
 
     }
 
+    const targets = document.querySelectorAll('.gridBox .item .textBox a');
+    const targetArray = [...targets];
     const MouseIn = () => {
-        const target = document.querySelectorAll('.gridBox .item .textBox a');
-
-        const targetArray = [...target]; //querySelectorAll 을 배열에 저장
-        target.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                const otherItems = targetArray.filter(otherItem => otherItem !== item); //target을 제외한 targetArray배열 선택
-                
-                for(let i = 0; i < otherItems.length; i++){
-                    gsap.to(otherItems[i], {duration:0.6, opacity:0.4, filter: 'blur(3px)', ease:Power3.easeOut, onComplete: () => {gsap.to(otherItems[i], {duration:2, filter: 'blur(10px)', ease:Power1.easeIn, onComplete: () => {setTimeout(() => {console.log('test')}, 2000);}});}});
-                };
-
-                item.addEventListener('mouseleave', () => {
-                    for(let i = 0; i < otherItems.length; i++){
-                        gsap.killTweensOf(otherItems[i]);
-                        gsap.to(otherItems[i], {duration:0.4, opacity:1, filter: 'blur(0px)', ease:Power2.easeIn});
-                    };
-                });
-
-                item.addEventListener('click', () => {
-                    for(let i = 0; i < otherItems.length; i++){
-                        gsap.killTweensOf(otherItems[i]);
-                        gsap.to(otherItems[i], {duration:0.6, opacity:0.4, filter: 'blur(20px)', ease:Power2.easeOut});
-                    };
-                    Gird_Motion().MotionOut(element);
-                });
-            });
-        });
-        const mouseenter = () => {
-            console.log('mouseenter')
+        
+        const mouseenter = (target) => {
+            const otherItems = targetArray.filter(otherItem => otherItem !== target);
+            for(let i = 0; i < otherItems.length; i++){
+                gsap.to(otherItems[i], {duration:0.6, opacity:0.4, filter: 'blur(3px)', ease:Power2.easeOut, onComplete: () => {gsap.to(otherItems[i], {duration:2, filter: 'blur(10px)', ease:Power1.easeIn});}});
+            };
         }
-        const click = () => {
-            console.log('click')
+        const click = (target) => {
+            const otherItems = targetArray.filter(otherItem => otherItem !== target);
+            console.log(target)
+            Gird_Motion().MotionOut();
         }
-        const mouseleave = () => {
-            console.log('mouseleave')
+        const mouseleave = (target) => {
+            const otherItems = targetArray.filter(otherItem => otherItem !== target);
+            for(let i = 0; i < otherItems.length; i++){
+                gsap.killTweensOf(otherItems[i]);
+                gsap.to(otherItems[i], {duration:0.4, opacity:1, filter: 'blur(0px)', ease:Power2.easeOut});
+            };
         }
         return {mouseenter,click,mouseleave}
     }

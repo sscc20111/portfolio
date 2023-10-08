@@ -18,14 +18,14 @@ const ImgSect = (props) => {
   );
 }
 const TextSect = (props) => {
-  const mouseenter = () => {
-    text_Motion().MouseIn().mouseenter()
+  const mouseenter = (e) => {
+    text_Motion().MouseIn().mouseenter(e)
   }
-  const click = () => {
-    text_Motion().MouseIn().click()
+  const click = (e) => {
+    text_Motion().MouseIn().click(e)
   }
-  const mouseleave = () => {
-    text_Motion().MouseIn().mouseleave()
+  const mouseleave = (e) => {
+    text_Motion().MouseIn().mouseleave(e)
   }
   return (
     <>
@@ -37,7 +37,7 @@ const TextSect = (props) => {
             props.span.map((item, index) => <span key={index}>{item}</span>)
           ) : null}
           {props.a.map((item, index) => (
-            <a key={index} onClick={click} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>{item}</a>
+            <a key={index} onClick={(e) => {click(e.target);}} onMouseEnter={(e) => {mouseenter(e.target);}} onMouseLeave={(e) => {mouseleave(e.target)}}>{item}</a>
           ))}
       </div>
     </>
@@ -48,7 +48,8 @@ const TextSect = (props) => {
 
 function App() {
   useEffect(()=>{
-    const gset = Gridset('.transitionBox','#B89569');
+    SmoothScroll(".transitionBox", ".transition-group", 1);
+    Gridset('.transitionBox','#B89569');
     Gird_Motion().MotionIn()
   })
   return (
