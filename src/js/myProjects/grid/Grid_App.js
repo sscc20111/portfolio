@@ -144,10 +144,6 @@ const text_Motion = () => {
         }
     }
 
-    const MotionOut = () => {
-
-    }
-
     const targets = document.querySelectorAll('.gridBox .item .textBox a');
     const targetArray = [...targets];
     const MouseIn = () => {
@@ -172,7 +168,7 @@ const text_Motion = () => {
         }
         return {mouseenter,click,mouseleave}
     }
-    return {MotionIn,MotionOut,MouseIn}
+    return {MotionIn,MouseIn}
 }
 
 const test = () => {
