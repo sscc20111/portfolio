@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { Power1, Power2, Power3 } from 'gsap';
 import './App.css';
-import Gridset , {Gird_Motion, text_Motion} from '../../js/myProjects/grid/Grid_App'
+import Gridset , {Gird_Motion, text_Motion, handleMouseEnter, imgmtion} from '../../js/myProjects/grid/Grid_App'
 import SmoothScroll from "../../component/SmoothScroll";
 
 import GridImg1 from './img/GridImg1.png';
@@ -12,36 +12,9 @@ import Test1 from './img/test1.png';
 import Test2 from './img/test2.png';
 import Test3 from './img/test3.png';
 import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const handleMouseEnter = (e) => {
-  console.log(e.target.dataset.key);
-  const targetRect = e.target.getBoundingClientRect();
-  const mouseY = e.clientY;
-  if (mouseY < targetRect.top + (targetRect.bottom - targetRect.top) / 2) {
-    console.log('마우스가 위에서 진입했습니다.');
-  } else {
-    console.log('마우스가 아래에서 진입했습니다.');
-  }
-  
-};
 
-const imgmtion = (e) => {
-  const imgtargets = Array.from(document.querySelectorAll('.imgBox img'));
-  const { offsetWidth: controllSizeX, offsetHeight: controllSizeY } = e.target;
-  const maxX = controllSizeX / 15;
-  const maxY = controllSizeY / 15;
-  const { left: controllLeft, top: controllTop } = e.target.getBoundingClientRect();
-  const mouseX = e.clientX - controllLeft;
-  const mouseY = e.clientY - controllTop;
-  const xDecimal = mouseX / controllSizeX - 0.5;
-  const yDecimal = mouseY / controllSizeY - 0.5;
-  const X = maxX * Math.sin(xDecimal);
-  const Y = maxY * Math.sin(yDecimal);
-
-  imgtargets.forEach((target, index) => {
-    gsap.to(target, { x: X, y: Y, delay: 0.03 * index, duration:1.5, ease: `Power${index + 1}.easeOut` });
-  });
-};
 
 function App() {
   const [gridimg,imgset] = useState([GridImg1,GridImg2,GridImg3])
@@ -94,7 +67,7 @@ function App() {
         <div className='textBox'>
             <span>hello</span>
             <span>welcome to my portfolio</span>
-            <a data-key='0' onClick={(e) => {click(e);}} onMouseMove={(e) => {mousemove(e)}} onMouseEnter={(e) => {mouseenter(e);}} onMouseLeave={(e) => {mouseleave(e)}}>Tweenmax.js</a>
+            {/* <Link to='/projects/note' data-key='0' onClick={(e) => {click(e);}} onMouseMove={(e) => {mousemove(e)}} onMouseEnter={(e) => {mouseenter(e);}} onMouseLeave={(e) => {mouseleave(e)}}>canvas</Link> */}
         </div>
       </div>
       <div className="item item3">
@@ -108,9 +81,9 @@ function App() {
           <div className='BoxCover'></div>
         </div>
         <div className='textBox'>
-            <a data-key='1' onClick={(e) => {click(e);}} onMouseMove={(e) => {mousemove(e)}} onMouseEnter={(e) => {mouseenter(e);}} onMouseLeave={(e) => {mouseleave(e)}}>php</a>
-            <a data-key='2' onClick={(e) => {click(e);}} onMouseMove={(e) => {mousemove(e)}} onMouseEnter={(e) => {mouseenter(e);}} onMouseLeave={(e) => {mouseleave(e)}}>Javascript</a>
-            <a data-key='3' onClick={(e) => {click(e);}} onMouseMove={(e) => {mousemove(e)}} onMouseEnter={(e) => {mouseenter(e);}} onMouseLeave={(e) => {mouseleave(e)}}>Jquery</a>
+            <a data-key='1' onClick={(e) => {click(e);}} onMouseMove={(e) => {mousemove(e)}} onMouseEnter={(e) => {mouseenter(e);}} onMouseLeave={(e) => {mouseleave(e)}}>grid.js</a>
+            <a data-key='2' onClick={(e) => {click(e);}} onMouseMove={(e) => {mousemove(e)}} onMouseEnter={(e) => {mouseenter(e);}} onMouseLeave={(e) => {mouseleave(e)}}>todo-List</a>
+            <a data-key='3' onClick={(e) => {click(e);}} onMouseMove={(e) => {mousemove(e)}} onMouseEnter={(e) => {mouseenter(e);}} onMouseLeave={(e) => {mouseleave(e)}}>GuestBook</a>
         </div>
       </div>
       <div className="item item5">
@@ -130,14 +103,6 @@ function App() {
         </div>
       </div>
     </Container>
-    // <Container className='gridBox transitionBox'>
-    //       <div className="item item1"><ImgSect src={GridImg1}></ImgSect></div>
-    //       <div className="item item2"><TextSect a={['Tweenmax.js']} span={['hello!', 'welcome to my portfolio']}></TextSect></div>
-    //       <div className="item item3"><ImgSect src={GridImg2}></ImgSect></div>
-    //       <div className="item item4"><TextSect a={['php', 'Javascript', 'Jquery']}></TextSect></div>
-    //       <div className="item item5"><ImgSect src={GridImg3}></ImgSect></div>
-    //       <div className="item item6"><TextSect a={['Responsive', 'Parallax', 'Animated']}></TextSect></div>
-    // </Container>
   );
 }
 

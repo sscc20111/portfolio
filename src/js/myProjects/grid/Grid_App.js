@@ -170,9 +170,38 @@ const text_Motion = () => {
     }
     return {MotionIn,MouseIn}
 }
+const handleMouseEnter = (e) => {
+    console.log(e.target.dataset.key);
+    const targetRect = e.target.getBoundingClientRect();
+    const mouseY = e.clientY;
+    if (mouseY < targetRect.top + (targetRect.bottom - targetRect.top) / 2) {
+        console.log('마우스가 위에서 진입했습니다.');
+    } else {
+        console.log('마우스가 아래에서 진입했습니다.');
+    }
+    
+};
+
+const imgmtion = (e) => {
+    const imgtargets = Array.from(document.querySelectorAll('.imgBox img'));
+    const { offsetWidth: controllSizeX, offsetHeight: controllSizeY } = e.target;
+    const maxX = controllSizeX / 15;
+    const maxY = controllSizeY / 15;
+    const { left: controllLeft, top: controllTop } = e.target.getBoundingClientRect();
+    const mouseX = e.clientX - controllLeft;
+    const mouseY = e.clientY - controllTop;
+    const xDecimal = mouseX / controllSizeX - 0.5;
+    const yDecimal = mouseY / controllSizeY - 0.5;
+    const X = maxX * Math.sin(xDecimal);
+    const Y = maxY * Math.sin(yDecimal);
+
+    imgtargets.forEach((target, index) => {
+      gsap.to(target, { x: X, y: Y, delay: 0.03 * index, duration:1.5, ease: `Power${index + 1}.easeOut` });
+    });
+};
 
 const test = () => {
     console.log('test')
 }
 export default Gridset 
-export {test, Gird_Motion, text_Motion}
+export {test, Gird_Motion, text_Motion, handleMouseEnter, imgmtion}
