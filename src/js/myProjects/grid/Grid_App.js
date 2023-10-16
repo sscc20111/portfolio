@@ -122,14 +122,14 @@ const Gird_Motion = () => {
         
         setTimeout(() => {
             document.querySelector('.gridBox').classList.remove('MotionGo');
-        }, 1400);
+        }, 800);
 
-        gsap.to(girdMotion[0], {left:'0%',               duration:0.3, delay:delays[0], ease: Power2.easeInOut, onComplete: () => {girdMotion[0].classList.remove('Motion1_complet')}});
-        gsap.to(girdMotion[1], {bottom:'0%',             duration:0.3, delay:delays[1], ease: Power2.easeInOut});
-        gsap.to(girdMotion[2], {left:'0%',               duration:0.3, delay:delays[2], ease: Power2.easeInOut, onComplete: () => {girdMotion[2].classList.remove('Motion1_complet')}});
-        gsap.to(girdMotion[3], {left:'0%', bottom:'0%',  duration:0.3, delay:delays[3], ease: Power2.easeInOut});
-        gsap.to(girdMotion[4], {top:'0%',                duration:0.3, delay:delays[4], ease: Power2.easeInOut, onComplete: () => {girdMotion[4].classList.remove('Motion1_complet')}});
-        gsap.to(girdMotion[5], {right:'0%', bottom:'0%', duration:0.3, delay:delays[5], ease: Power2.easeInOut});
+        gsap.to(girdMotion[0], {left:'0%',               duration:0.2, delay:delays[0]/2, ease: Power2.easeInOut, onComplete: () => {girdMotion[0].classList.remove('Motion1_complet')}});
+        gsap.to(girdMotion[1], {bottom:'0%',             duration:0.2, delay:delays[1]/2, ease: Power2.easeInOut});
+        gsap.to(girdMotion[2], {left:'0%',               duration:0.2, delay:delays[2]/2, ease: Power2.easeInOut, onComplete: () => {girdMotion[2].classList.remove('Motion1_complet')}});
+        gsap.to(girdMotion[3], {left:'0%', bottom:'0%',  duration:0.2, delay:delays[3]/2, ease: Power2.easeInOut});
+        gsap.to(girdMotion[4], {top:'0%',                duration:0.2, delay:delays[4]/2, ease: Power2.easeInOut, onComplete: () => {girdMotion[4].classList.remove('Motion1_complet')}});
+        gsap.to(girdMotion[5], {right:'0%', bottom:'0%', duration:0.2, delay:delays[5]/2, ease: Power2.easeInOut});
     }
     return {MotionIn,MotionOut}
 }
@@ -171,15 +171,15 @@ const text_Motion = () => {
     return {MotionIn,MouseIn}
 }
 const handleMouseEnter = (e) => {
-    console.log(e.target.dataset.key);
     const targetRect = e.target.getBoundingClientRect();
     const mouseY = e.clientY;
     if (mouseY < targetRect.top + (targetRect.bottom - targetRect.top) / 2) {
-        console.log('마우스가 위에서 진입했습니다.');
+        const direction = 'up'
+        return direction
     } else {
-        console.log('마우스가 아래에서 진입했습니다.');
+        const direction = 'down'
+        return direction
     }
-    
 };
 
 const imgmtion = (e) => {

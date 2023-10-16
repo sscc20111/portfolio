@@ -18,7 +18,7 @@ img {width: 100%;height: 100%; object-fit: cover;}
 .gridBox .item .contBox .BoxCover {position: absolute; top: 0;bottom: 0;left: 0;right: 0; z-index: 10; transition: all 0.5s cubic-bezier(0.66, 0.08, 0.21, 1.07);}
 .gridBox .item .contBox.Motion1_complet .BoxCover {right: 100%;}
 .gridBox .item .contBox .imgBox {position: relative; overflow: hidden; width: 100%; height: 100%; z-index: 9; opacity: 0; background: #000;}
-.gridBox .item .contBox .imgBox img {transform: scale(1.2);}
+.gridBox .item .contBox .imgBox img {position: absolute; transform: scale(1.2);}
 
 .gridBox .item .textBox {position: absolute; cursor: pointer; top: 0;bottom: 0;left: 0;right: 0; z-index: 11; text-align: left; filter: blur(10px); opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.66, 0.08, 0.21, 1.07);}
 .gridBox .item .textBox a {font-size: 90px; font-weight: 600; color: #000; white-space: nowrap; display: inline-block;}

@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 
 function App() {
   const [gridimg,imgset] = useState([GridImg1,GridImg2,GridImg3])
+  const [gridprevimg,previmgset] = useState([GridImg1,GridImg2,GridImg3])
   useEffect(()=>{
     SmoothScroll(".transitionBox", ".transition-group", 1);
     Gridset('.transitionBox','#B89569');
@@ -26,7 +27,6 @@ function App() {
 
   const mouseenter = (e) => {
     text_Motion().MouseIn().mouseenter(e.target)
-    handleMouseEnter(e)
     imgtest(e)
   }
   const click = (e) => {
@@ -39,8 +39,8 @@ function App() {
     imgmtion(e)
   }
 
-  const imgtest = (nuber) => {
-    const i = nuber.target.dataset.key
+  const imgtest = (e) => {
+    const i = e.target.dataset.key
     const test = [
       {img1:GridImg1,img2:GridImg2,img3:GridImg3},
       {img1:Test1,img2:Test2,img3:Test3},
@@ -50,14 +50,36 @@ function App() {
       {img1:Test1,img2:Test2,img3:Test3},
       {img1:GridImg1,img2:GridImg2,img3:GridImg3}
     ]
+    previmgset([gridimg[0],gridimg[1],gridimg[2]])
     imgset([test[i].img1,test[i].img2,test[i].img3])
+
+    const target = document.querySelectorAll('.imgBox .z-1');
+    gsap.set(target, {opacity:1})
+    gsap.to(target, {opacity:0, duration:0.35, ease: Power2.easeInOut})
+    
+    const otargets = Array.from(document.querySelectorAll('.imgBox .z-0'));
+    gsap.killTweensOf(otargets);
+    if(handleMouseEnter(e) === 'down'){
+      otargets.forEach((targets, index) => {
+        gsap.set(targets, {y:`${index*5 + 10}px`})
+      })
+      // gsap.set(otargets, {y:'20px'})
+    }else{
+      otargets.forEach((targets, index) => {
+        gsap.set(targets, {y:`-${index*5 + 10}px`})
+      })
+      // gsap.set(otargets, {y:'-20px'})
+    }
   }
   return (
     <Container className='gridBox transitionBox'>
       <div className="item item1">
         <div className='contBox'>
           <div className='BoxCover'></div>
-          <div className='imgBox'><img style={{Scale:'1.2'}} src={gridimg[0]}></img></div>
+          <div className='imgBox'>
+            <img className='z-0' src={gridimg[0]}></img>
+            <img className='z-1' src={gridprevimg[0]}></img>
+            </div>
         </div>
       </div>
       <div className="item item2">
@@ -73,7 +95,10 @@ function App() {
       <div className="item item3">
         <div className='contBox'>
           <div className='BoxCover'></div>
-          <div className='imgBox'><img style={{ transform: 'scale(1.2)' }} src={GridImg2}></img></div>
+          <div className='imgBox'>
+            <img className='z-0' src={gridimg[1]}></img>
+            <img className='z-1' src={gridprevimg[1]}></img>
+            </div>
         </div>
       </div>
       <div className="item item4">
@@ -89,7 +114,10 @@ function App() {
       <div className="item item5">
         <div className='contBox'>
           <div className='BoxCover'></div>
-          <div className='imgBox'><img style={{transform:{scale:1.2}}} src={GridImg3}></img></div>
+          <div className='imgBox'>
+            <img className='z-0' src={gridimg[2]}></img>
+            <img className='z-1' src={gridprevimg[2]}></img>
+          </div>
         </div>
       </div>
       <div className="item item6">
