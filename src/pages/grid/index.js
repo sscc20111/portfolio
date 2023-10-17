@@ -50,6 +50,7 @@ function App() {
       {img1:Test1,img2:Test2,img3:Test3},
       {img1:GridImg1,img2:GridImg2,img3:GridImg3}
     ]
+    console.log(gridimg[0])
     previmgset([gridimg[0],gridimg[1],gridimg[2]])
     imgset([test[i].img1,test[i].img2,test[i].img3])
 
