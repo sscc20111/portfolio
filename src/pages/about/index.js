@@ -11,8 +11,9 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import SmoothScroll from "../../js/SmoothScroll";
 import { Power1, Power3 } from 'gsap';
 import { gsap } from 'gsap';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faFaceSmileWink, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPhone, faAt } from "@fortawesome/free-solid-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 import LogoApp from '../../pages/intro/intro_App'
 import logoImg from './img/intro.jpg';
@@ -70,9 +71,9 @@ const TestApp = () => {
                         <img src={backgroundImg}></img>
                     </div>
                     <ul className='textBox'>
-                        {/* <li><span><FontAwesomeIcon icon={faFaceSmileWink} /></span><p></p></li>
-                        <li><span><FontAwesomeIcon icon={faFaceSmileWink} /></span><p></p></li>
-                        <li><span><FontAwesomeIcon icon={faFaceSmileWink} /></span><p></p></li> */}
+                        <li><span><FontAwesomeIcon icon={faPhone} /></span><p></p></li>
+                        <li><span><FontAwesomeIcon icon={faAt} /></span><p></p></li>
+                        <li><span><FontAwesomeIcon icon={faGithub} /></span><p></p></li>
                     </ul>
                 </div>
                 <div className='contentBox ms-auto z-1'>
