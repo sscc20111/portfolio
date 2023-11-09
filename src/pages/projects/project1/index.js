@@ -42,8 +42,8 @@ const Note = () => {
     }
 
     return (
-        <Container>
-            <Row md="auto" className='host-wrap'>
+        <Container className='transitionBox h-100 py-5'>
+            <Row md="auto" className='host-wrap mb-5'>
                 <Col className='host'>
                     <FontAwesomeIcon icon={faFaceSmileWink} />
                 </Col>
@@ -53,14 +53,14 @@ const Note = () => {
             </Row>
             <Row className='message-wrap'>
                 <Col>
-                    <div className='message-one'>Hello, There! 👋🏻</div>
+                    <div className='message-one mb-3'>Hello, There! 👋🏻</div>
                     <div className='message-two'>What's your name?</div>
                     <Clock type='main' />
                 </Col>
             </Row>
             <Row className='user-wrap'>
                 <div className='user'>
-                    <form className="user-form" onSubmit={Appstart}>
+                    <form className="user-form h-100" style={{display:'flex', alignItems: 'center', justifyContent: 'space-around'}} onSubmit={Appstart}>
                         <input
                         className='user-name'
                         type="text"

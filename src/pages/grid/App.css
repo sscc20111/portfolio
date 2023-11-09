@@ -5,25 +5,25 @@ img {width: 100%;height: 100%; object-fit: cover;}
 .App-header {background-color: #282c34; min-height: 100vh; display: flex;}
 
 
-.gridBox {width: 100%;height: 100vh;}
-.gridBox .item {transition: all cubic-bezier(0.65, 0.05, 0.36, 1) 0.5s; position: relative;}
-.gridBox.MotionGo .item1 {margin: 0px  10px 10px 0px;}
-.gridBox.MotionGo .item2 {margin: 0px  10px 10px 10px;}
-.gridBox.MotionGo .item3 {margin: 0px  0px  10px 10px;}
-.gridBox.MotionGo .item4 {margin: 10px 10px 0px  0px;}
-.gridBox.MotionGo .item5 {margin: 10px 10px 0px  10px;}
-.gridBox.MotionGo .item6 {margin: 10px 0px  0px  10px;}
+.gridApp {width: 100%;height: 100vh;}
+.gridApp .item {transition: all cubic-bezier(0.65, 0.05, 0.36, 1) 0.5s; position: relative;}
+.gridApp.MotionGo .item1 {margin: 0px  10px 10px 0px;}
+.gridApp.MotionGo .item2 {margin: 0px  10px 10px 10px;}
+.gridApp.MotionGo .item3 {margin: 0px  0px  10px 10px;}
+.gridApp.MotionGo .item4 {margin: 10px 10px 0px  0px;}
+.gridApp.MotionGo .item5 {margin: 10px 10px 0px  10px;}
+.gridApp.MotionGo .item6 {margin: 10px 0px  0px  10px;}
 
-.gridBox .item .contBox {position: absolute; top: 0;bottom: 0;left: 0;right: 0; transition: all 0.5s cubic-bezier(0.66, 0.08, 0.21, 1.07);}
-.gridBox .item .contBox .BoxCover {position: absolute; top: 0;bottom: 0;left: 0;right: 0; z-index: 10; transition: all 0.5s cubic-bezier(0.66, 0.08, 0.21, 1.07);}
-.gridBox .item .contBox.Motion1_complet .BoxCover {right: 100%;}
-.gridBox .item .contBox .imgBox {position: relative; overflow: hidden; width: 100%; height: 100%; z-index: 9; opacity: 0; background: #000;}
-.gridBox .item .contBox .imgBox img {position: absolute; transform: scale(1.2);}
+.gridApp .item .contBox {position: absolute; top: 0;bottom: 0;left: 0;right: 0; transition: all 0.5s cubic-bezier(0.66, 0.08, 0.21, 1.07);}
+.gridApp .item .contBox .BoxCover {position: absolute; top: 0;bottom: 0;left: 0;right: 0; z-index: 10; transition: right 0.5s cubic-bezier(0.66, 0.08, 0.21, 1.07);}
+.gridApp .item .contBox.Motion1_complet .BoxCover {right: 100%;}
+.gridApp .item .contBox .imgBox {position: relative; overflow: hidden; width: 100%; height: 100%; z-index: 9; opacity: 0; background: #000;}
+.gridApp .item .contBox .imgBox img {position: absolute; transform: scale(1.2);}
 
-.gridBox .item .textBox {position: absolute; cursor: pointer; top: 0;bottom: 0;left: 0;right: 0; z-index: 11; text-align: left; filter: blur(10px); opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.66, 0.08, 0.21, 1.07);}
-.gridBox .item .textBox a {font-size: 90px; font-weight: 600; color: #000; white-space: nowrap; display: inline-block;}
-.gridBox .item .textBox span {margin-left: 50px; font-size: 30px; font-weight: 600; color: #000; display: block; white-space: nowrap;}
-.gridBox .item2 .textBox {top: auto;}
+.gridApp .item .textBox {position: absolute; top: 0;bottom: 0;left: 0;right: 0; z-index: 11; text-align: left; filter: blur(10px); opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.66, 0.08, 0.21, 1.07);}
+.gridApp .item .textBox a {font-size: 75px; font-weight: 600; color: #000; white-space: nowrap; display: inline-block;}
+.gridApp .item .textBox span {font-size: 30px; font-weight: 600; color: #000; display: block; white-space: nowrap;}
+.gridApp .item2 .textBox {top: auto;}
 
 
 
