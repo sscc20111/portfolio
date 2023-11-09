@@ -7,7 +7,7 @@ const Gridset = (contents,backgroundColor) => {
     const gridItem = container.querySelectorAll('.item');
     const stageWidth = container.offsetWidth;
     const stageHeight = container.offsetHeight;
-    const gridColor = document.querySelectorAll('.gridBox .item .contBox .BoxCover');
+    const gridColor = document.querySelectorAll(contents + ' .item .contBox .BoxCover');
 
     gridColor.forEach(item => {
         item.style.backgroundColor = '#B89569';
@@ -94,35 +94,38 @@ const Random = () => {
 const Gird_Motion = () => {
     let Count = 0;
     
-    const Constset = () => {Count += 1;}
+    const CountSet = () => {Count += 1;}
     const MotionIn = () => {
         const delays = Random().Delay(1,2,6);// (x,y,z) z개의 x.0 ~ y.0 랜덤 딜레이값
         setTimeout(() => {
-            document.querySelector('.gridBox').classList.add('MotionGo');
+            document.querySelector('.gridApp').classList.add('MotionGo');
         }, 600);
-        const girdMotion = document.querySelectorAll('.gridBox .item .contBox');
-        const img = document.querySelectorAll('.gridBox .item .imgBox');
+        const girdMotion = document.querySelectorAll('.gridApp .item .contBox');
+        const img = document.querySelectorAll('.gridApp .item .imgBox');
         img.forEach(item => {
             item.style.opacity = 1;
         });
-        gsap.to(girdMotion[0], {left:'15%',               duration:0.3, delay:delays[0], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);Constset();setTimeout(() => {girdMotion[0].classList.add('Motion1_complet')}, 300);}})
-        gsap.to(girdMotion[1], {bottom:'20%',             duration:0.3, delay:delays[1], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);Constset();}})
-        gsap.to(girdMotion[2], {left:'15%',               duration:0.3, delay:delays[2], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);Constset();setTimeout(() => {girdMotion[2].classList.add('Motion1_complet')}, 300);}})
-        gsap.to(girdMotion[3], {left:'10%', bottom:'20%', duration:0.3, delay:delays[3], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);Constset();}})
-        gsap.to(girdMotion[4], {top:'20%',                duration:0.3, delay:delays[4], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);Constset();setTimeout(() => {girdMotion[4].classList.add('Motion1_complet')}, 300);}})
-        gsap.to(girdMotion[5], {right:'15%', bottom:'5%', duration:0.3, delay:delays[5], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);Constset();}})
+        gsap.to(girdMotion[0], {left:'15%',               duration:0.3, delay:delays[0], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);CountSet();setTimeout(() => {girdMotion[0].classList.add('Motion1_complet')}, 300);}})
+        gsap.to(girdMotion[1], {bottom:'20%',             duration:0.3, delay:delays[1], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);CountSet();}})
+        gsap.to(girdMotion[2], {left:'15%',               duration:0.3, delay:delays[2], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);CountSet();setTimeout(() => {girdMotion[2].classList.add('Motion1_complet')}, 300);}})
+        gsap.to(girdMotion[3], {left:'10%', bottom:'20%', duration:0.3, delay:delays[3], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);CountSet();}})
+        gsap.to(girdMotion[4], {top:'20%',                duration:0.3, delay:delays[4], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);CountSet();setTimeout(() => {girdMotion[4].classList.add('Motion1_complet')}, 300);}})
+        gsap.to(girdMotion[5], {right:'15%', bottom:'5%', duration:0.3, delay:delays[5], ease: Power2.easeInOut, onComplete: () => {text_Motion().MotionIn(Count);CountSet();}})
     }
 
-    const MotionOut = () => {
-        const girdMotion = document.querySelectorAll('.gridBox .item .contBox');
-        const delays = Random().Delay(0,1,6);// (x,y,z) z개의 x.0 ~ y.0 랜덤 딜레이값
-        const target = document.querySelectorAll('.gridBox .item .textBox');
+    const MotionOut = (delay) => {
+        const girdMotion = document.querySelectorAll('.gridApp .item .contBox');
+        const delays = Random().Delay(0,delay*(2/3),6);// (x,y,z) z개의 x.0 ~ y.0 랜덤 딜레이값 //delay*(2/3)=1
+        const target = document.querySelectorAll('.gridApp .item .textBox');
 
-        gsap.to(target, {duration:0.6, opacity:0, filter: 'blur(20px)', ease:Power3.easeOut, onComplete: () => {target.forEach(element => {element.style.visibility = 'hidden'})}});
-        
+        gsap.to(target, {duration:(delay*0.4), opacity:0, filter: 'blur(20px)', ease:Power3.easeOut, onComplete: () => {target.forEach(element => {element.style.visibility = 'hidden'})}});
+                                //delay*0.4=0.6
         setTimeout(() => {
-            document.querySelector('.gridBox').classList.remove('MotionGo');
-        }, 800);
+            document.querySelector('.gridApp').classList.remove('MotionGo');
+        }, (delay*520));// delay*5.4=800 + 0.5s('.MotionGo') = 1.3s
+        setTimeout(() => {
+            gsap.to(girdMotion, {opacity:'0', duration:0.15, ease: Power2.easeInOut});
+        }, (delay*750));// delay*866= 1.3s
 
         gsap.to(girdMotion[0], {left:'0%',               duration:0.2, delay:delays[0]/2, ease: Power2.easeInOut, onComplete: () => {girdMotion[0].classList.remove('Motion1_complet')}});
         gsap.to(girdMotion[1], {bottom:'0%',             duration:0.2, delay:delays[1]/2, ease: Power2.easeInOut});
@@ -135,7 +138,7 @@ const Gird_Motion = () => {
 }
 
 const text_Motion = () => {
-    const element = document.querySelectorAll('.gridBox .item .textBox');
+    const element = document.querySelectorAll('.gridApp .item .textBox');
     const MotionIn = (Count) => {
         if(Count === 5){
             setTimeout(() => {
@@ -144,20 +147,23 @@ const text_Motion = () => {
         }
     }
 
-    const targets = document.querySelectorAll('.gridBox .item .textBox a');
+    const targets = document.querySelectorAll('.gridApp .item .textBox a');
     const targetArray = [...targets];
     const MouseIn = () => {
         
         const mouseenter = (target) => {
+            // console.log(target.getAttribute('data-key'))
+            // test(target.getAttribute('data-key'))
+
             const otherItems = targetArray.filter(otherItem => otherItem !== target);
             for(let i = 0; i < otherItems.length; i++){
                 gsap.to(otherItems[i], {duration:0.6, opacity:0.4, filter: 'blur(3px)', ease:Power2.easeOut, onComplete: () => {gsap.to(otherItems[i], {duration:2, filter: 'blur(10px)', ease:Power1.easeIn});}});
             };
+
         }
-        const click = (target) => {
+        const click = (target, delay) => {
             const otherItems = targetArray.filter(otherItem => otherItem !== target);
-            console.log(target)
-            Gird_Motion().MotionOut();
+            Gird_Motion().MotionOut(delay);
         }
         const mouseleave = (target) => {
             const otherItems = targetArray.filter(otherItem => otherItem !== target);
@@ -182,7 +188,7 @@ const handleMouseEnter = (e) => {
     }
 };
 
-const imgmtion = (e) => {
+const imgMotion = (e) => {
     const imgtargets = Array.from(document.querySelectorAll('.imgBox img'));
     const { offsetWidth: controllSizeX, offsetHeight: controllSizeY } = e.target;
     const maxX = controllSizeX / 15;
@@ -200,8 +206,12 @@ const imgmtion = (e) => {
     });
 };
 
-const test = () => {
-    console.log('test')
-}
+// const test = (key) => {
+//     const girdMotion = document.querySelector('.gridApp .item2 .contBox');
+//     const textBox =  document.createElement("div");
+//     textBox.textContent = key;
+
+//     girdMotion.appendChild(textBox);
+// }
 export default Gridset 
-export {test, Gird_Motion, text_Motion, handleMouseEnter, imgmtion}
+export {Gird_Motion, text_Motion, handleMouseEnter, imgMotion}

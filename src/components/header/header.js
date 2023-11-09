@@ -4,7 +4,7 @@ import Stack from 'react-bootstrap/Stack';
 import { gsap } from 'gsap';
 import { Power1 } from 'gsap';
 
-import LogoApp from '../../js/intro_App'
+import LogoApp from '../../pages/intro/intro_App'
 import './header.css'
 
 

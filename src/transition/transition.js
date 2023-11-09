@@ -14,22 +14,16 @@ const Transition1 = () => {
     
     const delay = 1500;
 
-    const IntroPage = <IntroApp />;
-    const AboutPage = <About />;
-    const GridPage = <GridApp />;
-    const Project1 = <Note />;
-    // const GuestbookPage = <Guestbook />;
-
     const location = useLocation();
 
     return (
     <TransitionGroup className="transition-group" onChange={() => {console.log('test')}}>
         <CSSTransition key={location.pathname} classNames="fade" timeout={delay}>
         <Routes location={location} >
-            <Route path="/" element={IntroPage} />
-            <Route path="/about" element={AboutPage} />
-            <Route path="/projects" element={GridPage} />
-            <Route path="/projects/note" element={Project1} />
+            <Route path="/" element={<IntroApp />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<GridApp delay={delay} />} />
+            <Route path="/projects/note" element={<Note />} />
             <Route path="/projects/note/Apppage" element={<NoteApp />}></Route>
             {/* <Route path="/guestbook" element={GuestbookPage} /> */}
         </Routes>

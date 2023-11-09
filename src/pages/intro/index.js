@@ -4,11 +4,11 @@ import { gsap } from 'gsap';
 import { Power1, Power3 } from 'gsap';
 
 import './App.css';
-import LogoApp from '../../js/intro_App'
-import logoImg from './intro.jpg';
+import LogoApp from './intro_App'
+import logoImg from './img/intro.jpg';
 
 import Container from 'react-bootstrap/Container';
-import SmoothScroll from "../../component/SmoothScroll";
+import SmoothScroll from "../../js/SmoothScroll";
 
 // const introOut = () => {
 //     gsap.to('.logo_main', {scale: 0, duration:0.5, delay:0.2,  ease: Power3.easeInOut})
@@ -91,7 +91,7 @@ const IntroApp = () => {
     return (
         <div className="introBox transitionBox" style={{width: '100vw', height: '100vh'}}>
             <Container className='w-100 h-100 position-relative'>
-                <Link className="logo_main position-absolute top-50 start-50 z-3" to="/about" onClick={() => introOut('.logo_main','.logo_outline', '.logo_background')}></Link>
+                <Link className="logo_main position-absolute top-50 start-50 z-3" to="/projects" onClick={() => introOut('.logo_main','.logo_outline', '.logo_background')}></Link>
                 <div className="logo_outline position-absolute top-50 start-50 z-2"></div>
                 <div className="logo_background position-absolute top-50 start-50 z-1"></div>
             </Container>
