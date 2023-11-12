@@ -20,7 +20,7 @@ const App = (pages) => {
   const [gridimg,imgset] = useState([GridImg1,GridImg2,GridImg3])
   const [gridprevimg,previmgset] = useState([GridImg1,GridImg2,GridImg3])
   useEffect(()=>{
-    SmoothScroll(".transitionBox", ".transition-group", 1);
+    // SmoothScroll(".gridBox.transitionBox", ".transition-group", 1);
     Gridset('.gridApp','#B89569');
     Gird_Motion().MotionIn()
   },[]);
