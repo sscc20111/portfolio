@@ -55,8 +55,7 @@ const PageLink = () => {
     }
 
     return(
-        // <Link className='projects_link py-4 d-block position-relative' style={{height:'20vh'}} onMouseMove={MouseMove} onClick={active} >
-        <Link to="/projects" className='projects_link py-4 d-block position-relative' style={{height:'20vh'}} onMouseMove={MouseMove} onClick={active} >
+        <Link to="/grid" className='projects_link py-4 d-block position-relative' style={{height:'20vh'}} onMouseMove={MouseMove} onClick={active} >
             <div className='textBox pt-3 d-flex position-relative z-1 align-items-end flex-column' >
                 <span>next</span>
                 <h3 style={{fontSize:'6rem'}}>projects page</h3>
@@ -66,7 +65,7 @@ const PageLink = () => {
     )
 }
 
-const TestApp = () => {
+const About = () => {
     const introSet = (main, background) => {
         new LogoApp(main,{
             size : 450,
@@ -202,14 +201,8 @@ const TestApp = () => {
                             </div>
                         </Stack>
                     </div>
+                    <PageLink></PageLink>
                 </Stack>
-                {/* <Link to="/projects" className='projects_link pt-5 d-block position-relative' style={{height:'20vh'}} onMouseMove={test} >
-                    <div className='textBox pt-3 d-flex position-relative z-1' >
-                        <h3 style={{fontSize:'6rem'}}>projects page</h3>
-                    </div>
-                    <div className='fakeBox position-absolute top-100 start-50 z-0' style={{width:'90vw', maxWidth:'1600px', height:'100vh', backgroundColor:'#B89569', transform:'translate(-50%,-20%) rotate(-2deg)'}}></div>
-                </Link> */}
-                <PageLink></PageLink>
             </Container>
         </div>
         <div className='fakeBox w-100 position-fixed' data-flip-id="img" style={{maxWidth:'1600px', height:'100vh', left:'50%', transform:'translateX(-50%)', backgroundColor:'#B89569', zIndex:'99'}}></div>
@@ -218,4 +211,4 @@ const TestApp = () => {
 };
 
 
-export default TestApp;
+export default About;

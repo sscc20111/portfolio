@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+.projectslist {font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;}
+
+.projectsWrap {background-color: #eae6e1; height: 100vh;}
+.fillbar {position: relative; flex: 1; margin-left: 1rem; border-bottom: 1px solid;}
+.form-check {}
+.form-check-input:checked[type=radio] {--bs-form-check-bg-image: none;}
+.form-check-input:checked { background-color: #95bcc8; border-color: #95bcc8; }
+.form-check-input { cursor: pointer; }
+.form-check-label { vertical-align: sub; cursor: pointer;}
+
+
+.ViewWrap {max-height: fit-content;}
+.ViewWrap figure {overflow: hidden;}
+.ViewWrap figure img {width: auto; max-width: 100%; background-repeat: no-repeat; background-position: center; background-size: cover;}
+.ViewWrap figure .projectImg {}
+
+/* .ViewWrap .infoWrap {background: linear-gradient(#ffffff00, 35%, #eae6e1); backdrop-filter: blur(5px);} */
+.ViewWrap:hover .infoWrap {}
+.ViewWrap .infoWrap .info_title {}
+.ViewWrap .infoWrap .info_desc {}
+.ViewWrap .infoWrap .info_desc ul {}
+.ViewWrap .infoWrap .info_desc ul li {list-style: disc inside;}
+/* .ViewWrap .infoWrap .info_desc ul li::marker {color: #95bcc8;} */
+.ViewWrap .infoWrap .info_desc ul li span { font-size: 10rem;}
+.ViewWrap .infoWrap .info_skills {display: flex;}
+.ViewWrap .infoWrap .info_skills span { color: white; font-size: 0.9rem; background-color: rgba(55, 55, 67, 0.7); border-radius: 0.4rem; white-space: nowrap;}
+.ViewWrap .infoWrap .info_skills span:not(:last-child) {margin-right: 0.8rem;}

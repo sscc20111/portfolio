@@ -5,9 +5,10 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import IntroApp from "../pages/intro/index";
 import GridApp from "../pages/grid/index";
 import About from "../pages/about/index";
+import Projects from "../pages/projects/main";
 import Note from "../pages/projects/project1/index";
 import NoteApp from '../pages/projects/project1/App/index';
-// import Guestbook from "../pages/guestbook/App";
+import Guestbook from "../pages/guestbook/App";
 
 
 const Transition1 = () => {
@@ -22,10 +23,11 @@ const Transition1 = () => {
         <Routes location={location} >
             <Route path="/" element={<IntroApp />} />
             <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<GridApp delay={delay} />} />
-            <Route path="/projects/note" element={<Note />} />
-            <Route path="/projects/note/Apppage" element={<NoteApp />}></Route>
-            {/* <Route path="/guestbook" element={GuestbookPage} /> */}
+            <Route path="/grid" element={<GridApp delay={delay} />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/todo" element={<Note />} />
+            <Route path="/projects/todo/Apppage" element={<NoteApp />}></Route>
+            <Route path="/guestbook" element={<Guestbook />} />
         </Routes>
         </CSSTransition>
     </TransitionGroup>

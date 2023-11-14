@@ -29,7 +29,7 @@ const Note = () => {
         if(dataUser !== ""){
             console.log(dataUser);
             localStorage.setItem('UserName', dataUser);
-            navigate('/projects/note/Apppage');
+            navigate('/projects/todo/Apppage');
         }else{
             popup.alertNoText();
         }

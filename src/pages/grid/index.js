@@ -109,7 +109,7 @@ const App = (pages) => {
           </div>
           <Stack className='textBox' style={{alignItems: 'flex-start', justifyContent: 'flex-end'}}>
               <Link className='mb-2' to='/about' data-key='0' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>About</Link>
-              <a className='mb-2' data-key='1' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>My Projects</a>
+              <Link className='mb-2' to='/projects' data-key='1' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>My Projects</Link>
           </Stack>
         </div>
         <div className="item item5">
@@ -127,7 +127,7 @@ const App = (pages) => {
           </div>
           <Stack className='textBox' style={{alignItems: 'flex-end', justifyContent: 'flex-end'}}>
               {/* <a className='mb-2' data-key='2' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>Login</a> */}
-              <a className='mb-2' data-key='2' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>GuestBook</a>
+              <Link to='/guestbook' className='mb-2' data-key='2' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>GuestBook</Link>
           </Stack>
         </div>
       </div>

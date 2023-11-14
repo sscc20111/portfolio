@@ -91,7 +91,7 @@ const IntroApp = () => {
     return (
         <div className="introBox transitionBox" style={{width: '100vw', height: '100vh'}}>
             <Container className='w-100 h-100 position-relative'>
-                <Link className="logo_main position-absolute top-50 start-50 z-3" to="/projects" onClick={() => introOut('.logo_main','.logo_outline', '.logo_background')}></Link>
+                <Link className="logo_main position-absolute top-50 start-50 z-3" to="/grid" onClick={() => introOut('.logo_main','.logo_outline', '.logo_background')}></Link>
                 <div className="logo_outline position-absolute top-50 start-50 z-2"></div>
                 <div className="logo_background position-absolute top-50 start-50 z-1"></div>
             </Container>
