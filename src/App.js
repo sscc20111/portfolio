@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import Transition from './transition/transition';
 import Header from './components/header/header';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,10 +10,10 @@ function App() {
 
   return (
     <div className="App">
-        <Router>
+        <HashRouter >
           <Header />
           <Transition />
-        </Router>
+        </HashRouter>
     </div>
   );
 }

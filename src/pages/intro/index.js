@@ -78,7 +78,6 @@ const IntroApp = () => {
     useEffect(() => {
         if(prevLocation.pathname !== '/'){
             if(logoElement){
-                console.log(location.pathname)
                 setTimeout(() => {
                     introSet('.logo_main','.logo_outline', '.logo_background')
                     document.body.style.height = '100vh' //about_page  SmoothScroll에서 실행한 body height 초기화
