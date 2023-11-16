@@ -67,12 +67,11 @@ const Note = ({ note, children, onRemove, drag, modify }) => {
     if(note.state){
       return (
           <div className={'note flipIndex' + note.id} style={note.style} data-index={note.id} data-flip-id="flipform">
-              <p>{children}</p>
-              <p>{note.id}</p>
+              <p className='fs-5 p-2'>{children}</p>
               {JSON.parse(localStorage.getItem('token')) && note.user_data === JSON.parse(localStorage.getItem('token')).user_data && (
                 <span>
-                    <button onClick={modifyTarget} className="btn btn-primary glyphicon glyphicon-pencil" />
-                    <button onClick={remove} className="btn btn-danger glyphicon glyphicon-trash" />
+                    <button onClick={modifyTarget} className="btn btn-primary glyphicon glyphicon-pencil" >수정</button>
+                    <button onClick={remove} className="btn btn-danger glyphicon glyphicon-trash" >삭제</button>
                 </span>
               )}
           </div>
@@ -126,10 +125,10 @@ const CreateBtn = ({creatNote,LoginVisible}) => {
   const isAuthenticated = loginTokenExpiry();
 
   return isAuthenticated ? (
-    <button className="createBtn btn btn-sm btn-success glyphicon glyphicon-plus" data-flip-id="flipform" onClick={creatNote} />
+    <button className="createBtn btn btn-sm btn-success glyphicon glyphicon-plus" style={{position:'absolute', top:'90px', right:'10px'}} data-flip-id="flipform" onClick={creatNote} >글작성</button>
   ) : (
-    <button className="createBtn2 btn btn-sm btn-success top-10px" style={{position:'absolute', top:'40px', right:'10px'}} onClick={LoginVisible} />
-  );
+    <button className="createBtn2 btn btn-sm btn-success top-10px" style={{position:'absolute', top:'90px', right:'10px'}} onClick={LoginVisible} >로그인/회원가입</button>
+  )
 }
 
 

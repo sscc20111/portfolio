@@ -10,6 +10,7 @@ import Note from "../pages/projects/project1/index";
 import NoteApp from '../pages/projects/project1/App/index';
 import Guestbook from "../pages/guestbook/App";
 
+import './transition.css';
 
 const Transition1 = () => {
     
@@ -18,7 +19,7 @@ const Transition1 = () => {
     const location = useLocation();
 
     return (
-    <TransitionGroup className="transition-group" onChange={() => {console.log('test')}}>
+    <TransitionGroup className="transition-group">
         <CSSTransition key={location.pathname} classNames="fade" timeout={delay}>
         <Routes location={location} >
             <Route path="/" element={<IntroApp />} />

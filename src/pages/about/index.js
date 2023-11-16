@@ -1,17 +1,15 @@
 import React, {  Children, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Image } from 'react-bootstrap';
 
 import { ListGroupItem } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
 import ListGroup from 'react-bootstrap/ListGroup';
+
 import SmoothScroll from "../../js/SmoothScroll";
-import { Power1, Power3 } from 'gsap';
-import { gsap } from 'gsap';
+import { Power1, gsap } from 'gsap';
 import { Flip } from 'gsap/Flip';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faAt } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -21,49 +19,7 @@ import logoImg from './img/intro.jpg';
 import backgroundImg from './img/background.png';
 import './App.css';
 
-const PageLink = () => {
-    const MouseMove = (e) => {
-        const target = document.querySelector('.projects_link');
-        const MotionBox = document.querySelector('.motionBox');
-        const contRect = target.getBoundingClientRect();
-        const y = e.clientY - contRect.top;
-        const targetP = gsap.utils.clamp(0, 1, y / (target.clientHeight / 2));
-    
-        gsap.to(MotionBox, {rotate:(targetP-1)*2, translateY:-targetP*50})
-    }
 
-    const active = () => {
-        gsap.registerPlugin(Flip);
-        const flipFrom = document.querySelector('.motionBox')
-        const flipTo = document.querySelector('.fakeBox')
-        const state = Flip.getState('.motionBox, .fakeBox');
-        flipFrom.classList.toggle("flipActive");
-        flipTo.classList.toggle("flipActive");
-        Flip.from(state, {
-            duration: 0.5,
-            fade: true,
-            scale: true,
-            absolute: true,
-            toggleClass: "flipping",
-            ease: "power3.inOut"
-        });
-        const test = document.querySelector('.about')
-        setTimeout(() => {
-            test.style.display = "none";
-            flipTo.style.display = "none";
-        }, 500);
-    }
-
-    return(
-        <Link to="/grid" className='projects_link py-4 d-block position-relative' style={{height:'20vh'}} onMouseMove={MouseMove} onClick={active} >
-            <div className='textBox pt-3 d-flex position-relative z-1 align-items-end flex-column' >
-                <span>next</span>
-                <h3 style={{fontSize:'6rem'}}>projects page</h3>
-            </div>
-            <div className='motionBox position-absolute z-0' data-flip-id="img" style={{width:'90vw', maxWidth:'1600px',top:'90%', left:'50%', height:'100vh', backgroundColor:'#B89569', transform:'translateX(-50%) rotate(-2deg)'}}></div>
-        </Link>
-    )
-}
 
 const About = () => {
     const introSet = (main, background) => {
@@ -103,9 +59,44 @@ const About = () => {
         gsap.to(background, {scale: 1, duration:0.5, delay:1.7,  ease: Power1.easeInOut})
     }
 
+    const MouseMove = (e) => {
+        const target = document.querySelector('.projects_link');
+        const MotionBox = document.querySelector('.motionBox');
+        const contRect = target.getBoundingClientRect();
+        const y = e.clientY - contRect.top;
+        const targetP = gsap.utils.clamp(0, 1, y / (target.clientHeight / 2));
+    
+        gsap.to(MotionBox, {rotate:(targetP-1)*2, translateY:-targetP*50})
+    }
+
+    const active = () => {
+        gsap.registerPlugin(Flip);
+        const flipFrom = document.querySelector('.motionBox')
+        const flipTo = document.querySelector('.fakeBox')
+        const state = Flip.getState('.motionBox, .fakeBox');
+        flipFrom.classList.toggle("flipActive");
+        flipTo.classList.toggle("flipActive");
+        Flip.from(state, {
+            duration: 0.5,
+            fade: true,
+            scale: true,
+            absolute: true,
+            toggleClass: "flipping",
+            ease: "power3.inOut"
+        });
+
+        const about = document.querySelector('.about')
+        setTimeout(() => { //grid 이동 모션시 어색함 수정
+            about.style.display = "none";
+            flipTo.style.display = "none";
+        }, 500);
+    }
+
     useEffect(() => {
-        SmoothScroll(".transitionBox", ".transition-group", 1);
         introSet('.imgset', '.backgroundset');
+        setTimeout(() => {
+            SmoothScroll(".transitionBox", ".transition-group", 1);
+        }, 10);
     }, []);
     return(
         <>
@@ -201,7 +192,13 @@ const About = () => {
                             </div>
                         </Stack>
                     </div>
-                    <PageLink></PageLink>
+                    <Link to="/grid" className='projects_link py-4 d-block position-relative' style={{height:'20vh'}} onMouseMove={MouseMove} onClick={active} >
+                        <div className='textBox pt-3 d-flex position-relative z-1 align-items-end flex-column' >
+                            <span>next</span>
+                            <h3 style={{fontSize:'6rem'}}>projects page</h3>
+                        </div>
+                        <div className='motionBox position-absolute z-0' data-flip-id="img" style={{width:'90vw', maxWidth:'1600px',top:'90%', left:'50%', height:'100vh', backgroundColor:'#B89569', transform:'translateX(-50%) rotate(-2deg)'}}></div>
+                    </Link>
                 </Stack>
             </Container>
         </div>

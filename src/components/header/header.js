@@ -55,7 +55,7 @@ const Header = () => {
                 introIn()
             }
         }
-        console.log(location.pathname)
+        // console.log(location.pathname)
         // 현재 경로를 이전 경로로 업데이트
         setPrevLocation(location);
     }, [location]);

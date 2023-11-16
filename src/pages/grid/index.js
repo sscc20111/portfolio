@@ -23,6 +23,9 @@ const App = (pages) => {
     // SmoothScroll(".gridBox.transitionBox", ".transition-group", 1);
     Gridset('.gridApp','#B89569');
     Gird_Motion().MotionIn()
+    setTimeout(() => { //grid 이동 모션시 어색함 수정
+      // document.body.style.height = '100vh' //about_page  SmoothScroll에서 실행한 body height 초기화
+  }, 500);
   },[]);
 
   const mouseenter = (e) => {
