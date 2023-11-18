@@ -1,32 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRotateLeft, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faRotateLeft, faPenToSquare, faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
-const Lists = ({Tododata, Togle, Delete, Visible}) => {
+
+import { Button } from 'react-bootstrap';
+
+
+const Lists = ({Tododata, Togle, Edit, Delete, Visible}) => {
+    const [editTogle,seteditTogle] = useState(true)
+    const [ListText, setText] = useState(Tododata.text);
     const remove = (id) => {
         Delete(id)
     }
-    // const Togle = (id) => {
-    //     Togle(id)
-    // }
+    const edit = (EditText) => {
+        Edit(EditText, Tododata.id)
+        seteditTogle(true)
+    }
+    const cancel = () => {
+        setText(Tododata.text)
+        seteditTogle(true)
+    }
 
     if(!Visible){
         return(
                     <div key={Tododata.id} className="item item-enter-done">
-                        <span>{Tododata.text}</span>
-                        <div className='btnBox'>
-                            <button className="check" data-id={Tododata.id} onClick={()=>Togle(Tododata.id)}>
-                                <FontAwesomeIcon icon={faCircleCheck} />
-                            </button>
-                            <button className="edit" data-id={Tododata.id}>
-                                <FontAwesomeIcon icon={faPen} />
-                            </button>
-                            <button className="delete" data-id={Tododata.id} onClick={()=>remove(Tododata.id)}>
-                                <FontAwesomeIcon icon={faTrash} />
-                            </button>
-                        </div>
+                        {editTogle ? (<>
+                            <span>{ListText}</span>
+                            <div className='btnBox'>
+                                <button className="check" data-id={Tododata.id} onClick={()=>Togle(Tododata.id)}>
+                                    <FontAwesomeIcon icon={faCircleCheck} />
+                                </button>
+                                <button className="edit" data-id={Tododata.id} onClick={()=>seteditTogle(false)}>
+                                    <FontAwesomeIcon icon={faPenToSquare} />
+                                </button>
+                                <button className="delete" data-id={Tododata.id} onClick={()=>remove(Tododata.id)}>
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </button>
+                            </div></>
+                        ):(<>
+                            <input type="text" className="todolist__input" value={ListText} onChange={(e) => setText(e.target.value)} />
+                            <div className='btnBox'>
+                                <button className='check' onClick={()=>edit(ListText, Tododata.id)}><FontAwesomeIcon icon={faCheck} /></button>
+                                <button className='cancel' onClick={cancel}><FontAwesomeIcon icon={faXmark} /></button>
+                            </div></>
+                        )}
                     </div>
         ) 
     }else{

@@ -94,7 +94,7 @@ const NoteApp = () => {
     const CompletedArray = JSON.parse(localStorage.getItem('completedList'));
 
     const [ListData, setList] = useState(TodoArray);
-    const [isListVisible, setIsListVisible] = useState(false);
+    const [IsListTogle, setIsListTogle] = useState(false);
 
     const Visible = (boolean) => {
         if(!boolean){
@@ -102,7 +102,7 @@ const NoteApp = () => {
         }else{
             setList(CompletedArray)
         }
-        setIsListVisible(boolean)
+        setIsListTogle(boolean)
     }
 
     const ListPush = (ListText) => {
@@ -120,20 +120,33 @@ const NoteApp = () => {
 
     const ListDelete = (id) => {
         const updatedList = ListData.filter((Data) => Data.id !== id);
-        const storageKey = isListVisible ? 'completedList' : 'todoList';
+        const storageKey = IsListTogle ? 'completedList' : 'todoList';
         localStorage.setItem(storageKey, JSON.stringify(updatedList));
         setList(updatedList);
     }
 
-    const ListTogle = (id) => {
+    const DataTogle = (id) => {
         ListDelete(id); //해당 리스트에서 삭제
 
         const updatedTarget = ListData.find((Data) => Data.id === id);
 
-        const updatedList = isListVisible   ? (TodoArray ? [...TodoArray, updatedTarget] : updatedTarget) //반대 스토리지에 저장
-                                            : (CompletedArray ? [...CompletedArray, updatedTarget] : [updatedTarget]);
-        const storageKey = isListVisible ? 'todoList' : 'completedList';
+        const updatedList = IsListTogle ? 
+                            (TodoArray ? [...TodoArray, updatedTarget] : updatedTarget) //반대 스토리지에 저장
+                            : (CompletedArray ? [...CompletedArray, updatedTarget] : [updatedTarget]);
+
+        const storageKey = IsListTogle ? 'todoList' : 'completedList';
         localStorage.setItem(storageKey, JSON.stringify(updatedList));
+    }
+
+    const DataEdit = (EditText, id) => {
+        const updatedTodo = ListData.map(Data => {
+            if (Data.id === id) {
+                return { ...Data, text:EditText};
+            }
+            return Data;
+        });
+        localStorage.setItem('todoList', JSON.stringify(updatedTodo));
+        setList(updatedTodo);
     }
 
 
@@ -155,25 +168,19 @@ const NoteApp = () => {
                     </div>
                 </div>
                 <div className='todoList p-4'>
-                    <TransitionGroup className="todo-list">
-                        {Array.isArray(ListData) ? (
-                        ListData.map((item) =>  (
-                        <CSSTransition key={item.id} timeout={300} classNames="item" >
-                            {/* <Lists id={item.id} TodoLists={TodoData} CompletedLists={CompletedData} Completed={ListCompleted} Visible={isListVisible} Delete={ListDelete} /> */}
-                            <Lists id={item.id} Tododata={item} Togle={ListTogle} Visible={isListVisible} Delete={ListDelete} />
-                        </CSSTransition>
-                        ))) : null}
-                    </TransitionGroup>
-                    <div className='createList'>
-                        <input type="text" className="todolist__input" value={ListText} onChange={(e) => setText(e.target.value)} />
-                        <Button className='btn' onClick={() => ListPush(ListText)}><FontAwesomeIcon icon={faPlus} /></Button>
-                    </div>
                     <>{/*List*/}
-                        {/* <Lists TodoLists={TodoData} CompletedLists={CompletedData} Completed={ListCompleted} Visible={isListVisible} Delete={ListDelete} />
+                        <TransitionGroup className="todo-list">
+                            {Array.isArray(ListData) ? (
+                            ListData.map((item) =>  (
+                            <CSSTransition key={item.id} timeout={300} classNames="item" >
+                                <Lists id={item.id} Tododata={item} Togle={DataTogle} Edit={DataEdit} Visible={IsListTogle} Delete={ListDelete} />
+                            </CSSTransition>
+                            ))) : null}
+                        </TransitionGroup>
                         <div className='createList'>
                             <input type="text" className="todolist__input" value={ListText} onChange={(e) => setText(e.target.value)} />
                             <Button className='btn' onClick={() => ListPush(ListText)}><FontAwesomeIcon icon={faPlus} /></Button>
-                        </div> */}
+                        </div>
                     </>
 
                     <>{/*Draw*/}

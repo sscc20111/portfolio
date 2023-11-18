@@ -34,7 +34,7 @@ main { position: relative; max-width: 1040px; height: 100%; margin: 40px auto 0;
 .todoWrap .todoList .createList input { width: 80%; height: 50%; font-size: 20px; outline: none; border: none; background-color: unset; }
 
 
-.fa-check { pointer-events: none; opacity: 0; }
+/* .fa-check { pointer-events: none; opacity: 0; } */
 .checked { opacity: 1; color: var(--color-mainB); pointer-events: none; }
 .lists { position: absolute; width: 90%; left: 50%; transform: translate(-50%, 0); top: 0; margin: 35px auto 0; overflow-y: scroll; }
 .completed__lists { position: absolute; width: 90%; left: 50%; transform: translate(-50%, 0%); top: 0; margin: 35px auto 0; overflow-y: scroll; }
