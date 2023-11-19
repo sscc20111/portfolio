@@ -9,12 +9,10 @@ const Main = (props) => {
 
 const Todo = (props) => {
     return(
-        <>
-            <Col className='time ms-auto' xs={6}>
-                <p className="date">{`${props.dayName}, ${props.month} ${props.days}`}</p>
-                <h3 className="currentTime">{`${props.hours < 10 ? `0${props.hours}` : props.hours}:${props.minutes < 10 ? `0${props.minutes}` : props.minutes}`}</h3>
-            </Col>
-        </>
+        <div className='time p-3'>
+            <p className="date">{`${props.dayName}, ${props.month} ${props.days}`}</p>
+            <h3 className="currentTime">{`${props.hours < 10 ? `0${props.hours}` : props.hours}:${props.minutes < 10 ? `0${props.minutes}` : props.minutes}`}</h3>
+        </div>
     )
 }
 

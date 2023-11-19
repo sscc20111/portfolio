@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 
+import uuid from 'react-uuid';
 import SmoothScroll from "../../js/SmoothScroll";
 import { gsap } from 'gsap';
 import { Power3 } from 'gsap';
@@ -17,14 +18,14 @@ const ProjectsView = (props) => {
                 link:'todo',
                 source:require('./img/todo.png'),
                 title:'todo_list',
-                desc: ['로컬스토리지 데이터 저장관리', '기존 todo-list를 react로 변환, 클론코딩 해보았습니다.'],
+                desc: ['로컬스토리지 데이터 저장관리', 'todo-list, 그림 그리기 기능 구현', '기존 todo-list를 react로 변환, 클론코딩 해보았습니다.'],
                 skills: ['React.js', 'JavaScript']
             };
             case 'canvas': return {
                 link:'canvas',
                 source:require('./img/canvas.png'),
                 title:'canvas.js',
-                desc:['여러 수학식을 사용하여 물이 출렁이는듯한 동적 움직임 구현', '커스터마이징 옵션구현'],
+                desc:['수학식을 사용하여 물이 출렁이는듯한 동적 움직임 구현', '커스터마이징 옵션구현'],
                 skills: ['JavaScript']
             };
             case 'GSAP': return {
@@ -45,7 +46,7 @@ const ProjectsView = (props) => {
                 link:'todo',
                 source:require('./img/todo.png'),
                 title:'todo_list',
-                desc: ['로컬스토리지 데이터 저장관리', '기존 todo-list를 react로 변환, 클론코딩 해보았습니다.'],
+                desc: ['로컬스토리지 데이터 저장관리', 'todo-list, 그림 그리기 기능 구현', '기존 todo-list를 react로 변환, 클론코딩 해보았습니다.'],
                 skills: ['React.js', 'JavaScript']
             };
         }
@@ -56,20 +57,19 @@ const ProjectsView = (props) => {
         <Link to={`/projects/${getImageSource(props.project).link}`} className='ViewWrap position-relative'>
             <figure className='imgBox d-flex align-items-center justify-content-center position-relative'>
                 <img src={require('./img/imgsize.png')} style={{backgroundImage: `url(${getImageSource(props.project).source})`}}></img>
-                {/* <img className='projectImg position-absolute' src={getImageSource(props.project).source}></img> */}
             </figure>
             <div className='infoWrap p-3'>
                 <h3 className='info_title fs-2 mb-3'>{getImageSource(props.project).title}</h3>
                 <div className='info_desc mb-3'>
                     <ul>
                         {getImageSource(props.project).desc.map((desc) => (
-                            <li className='px-3 py-2 fs-6 fw-light'>{desc}</li>
+                            <li key={uuid()} className='px-3 py-2 fs-6 fw-light'>{desc}</li>
                         ))}
                     </ul>
                 </div>
                 <div className='info_skills'>
                     {getImageSource(props.project).skills.map((skill) => (
-                        <span className='px-3 py-2 fw-light'>#{skill}</span>
+                        <span key={uuid()} className='px-3 py-2 fw-light'>#{skill}</span>
                     ))}
                 </div>
             </div>

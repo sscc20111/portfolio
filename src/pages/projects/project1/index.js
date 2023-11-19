@@ -42,42 +42,44 @@ const Note = () => {
     }
 
     return (
-        <Container className='transitionBox h-100 py-5'>
-            <Row md="auto" className='host-wrap mb-5'>
-                <Col className='host'>
-                    <FontAwesomeIcon icon={faFaceSmileWink} />
-                </Col>
-                <Col className='host'>
-                    <h1>Not To-do List</h1>
-                </Col>
-            </Row>
-            <Row className='message-wrap'>
-                <Col>
-                    <div className='message-one mb-3'>Hello, There! 👋🏻</div>
-                    <div className='message-two'>What's your name?</div>
-                    <Clock type='main' />
-                </Col>
-            </Row>
-            <Row className='user-wrap'>
-                <div className='user'>
-                    <form className="user-form h-100" style={{display:'flex', alignItems: 'center', justifyContent: 'space-around'}} onSubmit={Appstart}>
-                        <input
-                        className='user-name'
-                        type="text"
-                        ref={inputRef}
-                        value={dataUser}
-                        onChange={(e) => setUser(e.target.value)} />
-                            <Button variant="primary" type='submit'>
-                                <FontAwesomeIcon icon={faPaperPlane} />
-                            </Button>
-                    </form>
-                </div>
-            </Row>
-            <Row md="auto" className='alert__text'>
-                <Col><p>please type some words in the text box.</p></Col>
-                <Col><CloseButton onClick={Popclose} ></CloseButton></Col>
-            </Row>
-        </Container>
+        <div className='transitionBox w-100 h-100' style={{background:'#fff'}}>
+            <Container className='h-100 py-5'>
+                <Row md="auto" className='host-wrap mb-5'>
+                    <Col className='host'>
+                        <FontAwesomeIcon icon={faFaceSmileWink} />
+                    </Col>
+                    <Col className='host'>
+                        <h1>Not To-do List</h1>
+                    </Col>
+                </Row>
+                <Row className='message-wrap'>
+                    <Col>
+                        <div className='message-one mb-3'>Hello, There! 👋🏻</div>
+                        <div className='message-two'>What's your name?</div>
+                        <Clock type='main' />
+                    </Col>
+                </Row>
+                <Row className='user-wrap'>
+                    <div className='user'>
+                        <form className="user-form h-100" style={{display:'flex', alignItems: 'center', justifyContent: 'space-around'}} onSubmit={Appstart}>
+                            <input
+                            className='user-name'
+                            type="text"
+                            ref={inputRef}
+                            value={dataUser}
+                            onChange={(e) => setUser(e.target.value)} />
+                                <Button variant="primary" type='submit'>
+                                    <FontAwesomeIcon icon={faPaperPlane} />
+                                </Button>
+                        </form>
+                    </div>
+                </Row>
+                <Row md="auto" className='alert__text'>
+                    <Col><p>please type some words in the text box.</p></Col>
+                    <Col><CloseButton onClick={Popclose} ></CloseButton></Col>
+                </Row>
+            </Container>
+        </div>
     );
 }
 

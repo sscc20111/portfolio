@@ -63,22 +63,18 @@ const Weather = () => {
     }, []);
 
     return (
-        <Col className='weather me-3 py-3'>
-            <Row xs="auto"> 
-                <Col md={12}>
-                    <h4>{place}</h4>
-                </Col>
-                <Col md={12} className='mt-2'>
-                    <p className='temperature'>{todayTemp}℃</p>
-                </Col>
-                <Col className='ms-auto' style={{display:'flex'}}>
-                    <p className='sp' style={{marginTop:'auto', marginLeft:'auto'}}>{description}</p>
-                </Col>
-                <Col>
-                    <img src={require(`../img/${icon}.png`)}></img>
-                </Col>
-            </Row>
-        </Col>
+        <div className='weather p-3'>
+            <div md={12}>
+                <h4>{place}</h4>
+            </div>
+            <div md={12} className='mt-2'>
+                <p className='temperature'>{todayTemp}℃</p>
+            </div>
+            <div className='ms-auto' style={{display:'flex'}}>
+                <p className='sp' style={{marginTop:'auto', marginLeft:'auto'}}>{description}</p>
+                <img src={require(`../img/${icon}.png`)}></img>
+            </div>
+        </div>
     );
 };
 
