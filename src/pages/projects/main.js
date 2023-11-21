@@ -14,29 +14,36 @@ import './style.css'
 const ProjectsView = (props) => {
     const getImageSource = (project) => {
         switch (project) {
-            case 'todo': return {
+            case 'Todo-List': return {
                 link:'todo',
                 source:require('./img/todo.png'),
                 title:'todo_list',
                 desc: ['로컬스토리지 데이터 저장관리', 'todo-list, 그림 그리기 기능 구현', '기존 todo-list를 react로 변환, 클론코딩 해보았습니다.'],
                 skills: ['React.js', 'JavaScript']
             };
+            case 'CardGame': return {
+                link:'CardGame',
+                source:require('./img/todo.png'),
+                title:'CardGame',
+                desc: ['로컬스토리지 데이터 저장관리', 'todo-list, 그림 그리기 기능 구현', '기존 todo-list를 react로 변환, 클론코딩 해보았습니다.'],
+                skills: ['React.js', 'JavaScript']
+            };
             case 'canvas': return {
-                link:'canvas',
+                link:'/',
                 source:require('./img/canvas.png'),
                 title:'canvas.js',
                 desc:['수학식을 사용하여 물이 출렁이는듯한 동적 움직임 구현', '커스터마이징 옵션구현'],
                 skills: ['JavaScript']
             };
             case 'GSAP': return {
-                link:'GSAP',
+                link:'/grid',
                 source:require('./img/GSAP.png'),
                 title:'GSAP motion grid',
                 desc:['gsap를 이용한 grid 모션 페이지'],
                 skills: ['JavaScript', 'gsap']
             };
             case 'GuestBook': return {
-                link:'GuestBook',
+                link:'/guestbook',
                 source:require('./img/GuestBook.png'),
                 title:'GuestBook',
                 desc:['mysql을 이용한 데이터 상태 관리', 'gsap-flip을 사용한 모션 구현', 'login기능과 연동하여 글작성 및 수정, 삭제 권한 구현'],
@@ -52,9 +59,8 @@ const ProjectsView = (props) => {
         }
     };
 
-
     return(
-        <Link to={`/projects/${getImageSource(props.project).link}`} className='ViewWrap position-relative'>
+        <Link to={`${getImageSource(props.project).link}`} className='ViewWrap position-relative'>
             <figure className='imgBox d-flex align-items-center justify-content-center position-relative'>
                 <img src={require('./img/imgsize.png')} style={{backgroundImage: `url(${getImageSource(props.project).source})`}}></img>
             </figure>
@@ -78,7 +84,7 @@ const ProjectsView = (props) => {
 }
 
 const Main = () => {
-    const toyProjects = ['todo'];
+    const toyProjects = ['Todo-List','CardGame'];
     const myProjects = ['canvas', 'GSAP', 'GuestBook'];
 
     const [viewimg,setViewimg] = useState('')

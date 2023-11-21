@@ -1,0 +1,7 @@
+.CardGame { display: flex; position: relative; align-items: center; justify-content: center; flex-wrap: wrap; }
+/* .CardGame .deck {} */
+.CardGame .inputBox {width: 350px; height: 150px; display: flex; background: white; border: 1px solid; border-radius: 1rem; align-items: center; justify-content: center; flex-direction: column;}
+.CardGame .inputBox .levelInput {width: 90%; }
+
+.CardGame .cardWrap {max-width: 470px; max-height: 650px; flex-wrap: wrap;}
+.CardGame .cardWrap .testCard {width: 80px; height: 150px; border: 1px solid #000; border-radius: 1rem;}

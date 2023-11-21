@@ -44,6 +44,7 @@ const LoginForm = ({LoginHide}) => {
         password: dataPassword,
         nickname: dataName,
         });
+        LoginHide()
         LoginToken(dataName)
     } catch (error) {
         console.error('Error saving post:', error);

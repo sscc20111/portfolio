@@ -6,9 +6,12 @@ import IntroApp from "../pages/intro/index";
 import GridApp from "../pages/grid/index";
 import About from "../pages/about/index";
 import Projects from "../pages/projects/main";
-import Note from "../pages/projects/project1/index";
-import NoteApp from '../pages/projects/project1/App/index';
 import Guestbook from "../pages/guestbook/App";
+
+import Note from "../pages/projects/todoList/index";
+import NoteApp from '../pages/projects/todoList/App/index';
+import CardGame from "../pages/projects/CardGame/index";
+
 
 import './transition.css';
 
@@ -28,6 +31,7 @@ const Transition1 = () => {
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/todo" element={<Note />} />
             <Route path="/projects/todo/Apppage" element={<NoteApp />}></Route>
+            <Route path="/projects/CardGame" element={<CardGame />} />
             <Route path="/guestbook" element={<Guestbook />} />
         </Routes>
         </CSSTransition>

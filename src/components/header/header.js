@@ -63,10 +63,19 @@ const Header = () => {
     return (
         <Stack className='header' style={{width:'100%'}} direction="horizontal" gap={3}>
             {location.pathname !== '/' ? (
-                <h2 className='mb-0' style={{minHeight:'90px', width:'90px'}}>
-                    <Link className="logo_header position-absolute top-50 start-50 z-2" to="/"></Link>
-                    <div className='logo_line position-absolute top-50 start-50 z-1'></div>
-                </h2>
+                <>
+                    <h2 className='mb-0' style={{minHeight:'90px', width:'90px'}}>
+                        <Link className="logo_header position-absolute top-50 start-50 z-2" to="/"></Link>
+                        <div className='logo_line position-absolute top-50 start-50 z-1'></div>
+                    </h2>
+
+                    {/* <div className='NaviBox'>
+                        <Link to={'/about'}>About</Link>
+                        <Link to={'/grid'}>Grid</Link>
+                        <Link to={'/projects'}>Projects</Link>
+                        <Link to={'/guestbook'}>Guestbook</Link>
+                    </div> */}
+                </>
                 ) : (
                     <></>
                 )}
