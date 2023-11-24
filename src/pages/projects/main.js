@@ -23,16 +23,16 @@ const ProjectsView = (props) => {
             };
             case 'CardGame': return {
                 link:'CardGame',
-                source:require('./img/todo.png'),
+                source:require('./img/cardGame.png'),
                 title:'CardGame',
-                desc: ['로컬스토리지 데이터 저장관리', 'todo-list, 그림 그리기 기능 구현', '기존 todo-list를 react로 변환, 클론코딩 해보았습니다.'],
+                desc: ['같은 그림찾기 게임을 만들어보았습니다.'],
                 skills: ['React.js', 'JavaScript']
             };
             case 'canvas': return {
                 link:'/',
                 source:require('./img/canvas.png'),
                 title:'canvas.js',
-                desc:['수학식을 사용하여 물이 출렁이는듯한 동적 움직임 구현', '커스터마이징 옵션구현'],
+                desc:['수학식을 사용하여 물이 출렁이는듯한 움직임 구현', '커스터마이징 옵션구현'],
                 skills: ['JavaScript']
             };
             case 'GSAP': return {
