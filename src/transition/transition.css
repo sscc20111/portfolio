@@ -1,13 +1,16 @@
+/* .transition-group {z-index: 102;}
+.Ntransition {width: 100%; z-index: 101; position: relative;} */
+
 .transitionBox {position: absolute; left: 50%; transform: translateX(-50%); z-index: 99;}
 .transitionBox.fade-exit {z-index: 98;}
 .transitionBox.fade-enter {z-index: 99;}
 
-.transitionBox.introBox {background: #E9E6DF; transition: background 0.5s ease-in-out;}
-.transitionBox.introBox.fade-exit {z-index: 101;background: #e9e6df00;}
-.transitionBox.introBox.fade-enter {z-index: 101; background: #E9E6DF;}
+.transitionBox.introWrap {background: #E9E6DF; transition: background 0.5s ease-in-out;}
+.transitionBox.introWrap.fade-exit {z-index: 101;background: #e9e6df00;}
+.transitionBox.introWrap.fade-enter {z-index: 101; background: #E9E6DF;}
 
-.transitionBox.about.fade-exit {z-index: 98;}
-.transitionBox.about.fade-enter {z-index: 99;}
+.transitionBox.aboutWrap.fade-exit {z-index: 98;}
+.transitionBox.aboutWrap.fade-enter {z-index: 99;}
 
-.transitionBox.gridBox.fade-exit {z-index: 100;}
-.transitionBox.gridBox.fade-enter {z-index: 98;}
+.transitionBox.gridWrap.fade-exit {z-index: 100;}
+.transitionBox.gridWrap.fade-enter {z-index: 98;}

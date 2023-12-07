@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 const API_KEY = "8e9220877c3c2baec33ccbf605141d1b";
 const COORDS = "coords";

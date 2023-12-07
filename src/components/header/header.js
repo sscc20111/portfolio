@@ -65,8 +65,8 @@ const Header = () => {
             {location.pathname !== '/' ? (
                 <>
                     <h2 className='mb-0' style={{minHeight:'90px', width:'90px'}}>
-                        <Link className="logo_header position-absolute top-50 start-50 z-2" to="/"></Link>
-                        <div className='logo_line position-absolute top-50 start-50 z-1'></div>
+                        <Link className="logo_header position-absolute top-50 start-50 z-2 w-100" to="/"></Link>
+                        <div className='logo_line position-absolute top-50 start-50 z-1 w-100'></div>
                     </h2>
 
                     {/* <div className='NaviBox'>

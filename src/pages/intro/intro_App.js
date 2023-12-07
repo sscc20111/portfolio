@@ -1,6 +1,5 @@
 //////option/////
 //
-//    size : 크기,
 //    background : {
 //        backgroundStyles : 'img / color / line',
 //        src : '이미지 경로',
@@ -25,7 +24,7 @@ class LogoApp {
         this.ctx = this.canvas.getContext('2d');
         this.container.appendChild(this.canvas);
         //option
-        this.stage = options.size;
+        this.stage = this.container.clientWidth;
         this.background = options.background;
         this.shadow = options.shadow;
         this.shadowOption = options.shadowOption;
@@ -40,10 +39,6 @@ class LogoApp {
     }
 
     resize() {
-        if (document.body.clientWidth < 760) {
-            this.stage = document.body.clientWidth;
-        }
-
         this.canvas.width = this.stage;
         this.canvas.height = this.stage;
 

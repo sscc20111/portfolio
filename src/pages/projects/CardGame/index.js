@@ -27,21 +27,24 @@ const Cards = ({ Total, Click, StartTime, Reset }) => {
     const ArrayColor = colorSlice.concat(colorSlice)
     const [CardArray,setCardArray] = useState('')
 
-    const gameStart = () => {
+    const gameStart = () => {//**게임 시작**
         const target = document.querySelectorAll('.Card');
-        target.forEach((card,index)=>{
+
+        target.forEach((card,index)=>{//게임 시작 - 카드 보여주기 모션
             setTimeout(() => {
                 card.classList.add('cardFlip');
             }, 500 + (40 * index));
-            setTimeout(() => {//카드 감추기
-                card.classList.remove('cardFlip');
-            }, 2000 + (target.length*100));
         })
-        setTimeout(() => {
-            StartTime(new Date());//타이머 시작
+
+        setTimeout(() => {//게임 시작 - 카드 감추기
+            target.forEach((card,index)=>{
+                card.classList.remove('cardFlip');
+            })
+            StartTime(new Date());//게임 시작 - 타이머 시작
         }, 2000 + (target.length*100));
     }
-    const shuffleArray = (array) => {// 배열 섞기
+
+    const shuffleArray = (array) => {//**카드 섞기**
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];// 배열의 요소를 서로 교환
@@ -49,12 +52,12 @@ const Cards = ({ Total, Click, StartTime, Reset }) => {
         setCardArray(ArrayColor)
         gameStart()
     }
-    const reset = () => {
+    const reset = () => {//**재시작**
         const target = document.querySelectorAll('.Card.cardFlip');
-        target.forEach((card)=>{//셔플전 카드 감추기
+        target.forEach((card)=>{//재시작 - 카드 감추기
             card.classList.remove('cardFlip')
         })
-        setTimeout(() => {//카드 감추고 셔플
+        setTimeout(() => {//재시작 - 카드 감춘후 셔플
             shuffleArray(ArrayColor)
         }, 600);
         Reset()
@@ -63,7 +66,7 @@ const Cards = ({ Total, Click, StartTime, Reset }) => {
     const CardClick = (e) => {
         const target = e.target;
 
-        if(target.classList.contains('cardFlip') === false){
+        if(target.classList.contains('cardFlip') === false){//Flip 상태의 카드 선택 방지
             target.classList.add('cardFlip')
             Click(target)
         }
@@ -102,8 +105,8 @@ const CardGame = () => {
     }
 
     const Reset = () => {
-        setStartTime('');
-        setCompleted([]);
+        setStartTime('');//타이머 초기화
+        setCompleted([]);//진행상황 초기화
     }
 
     const GameRule = (target) => {
@@ -111,14 +114,14 @@ const CardGame = () => {
         const targetColor = target.querySelector(".cardFront").style.background
 
         switch (true) {
-            case Selected === '': //선택된 카드가 있는지 판별
+            case Selected === '': //첫번째 카드 선택 판별
                 setSelected(target); 
                 break;
-            case Selected.getAttribute('data-key') !== targetkey: //동일 카드 판별
-                if (Selected.querySelector(".cardFront").style.background === targetColor) {//동일 색 판별
+            case Selected.getAttribute('data-key') !== targetkey: //두번째 카드 선택 *동일 카드 선택 방지
+                if (Selected.querySelector(".cardFront").style.background === targetColor) {//성공 여부 *동일 색 판별
                     setSelected('');//성공
-                    setCompleted([...Completed,targetkey,Selected.getAttribute('data-key')])
-                    if(Completed.length === Total-2){
+                    setCompleted([...Completed,targetkey,Selected.getAttribute('data-key')])//진행상황에 push
+                    if(Completed.length === Total-2){//모든 카드 성공
                         setTimeout(() => {
                             alert('축하합니다!' + ((new Date()-StartTime)/1000) + '초 걸렸습니다.');
                         }, 100);

@@ -83,3 +83,9 @@ export default function SmoothScroll(contentSelector, viewport, smoothness = 1) 
     getProgress: () => scrollTrigger.animation?.progress() ?? 0
   };
 }
+
+const SmoothScrollKill = () => {
+  document.body.style.height = '100vh'
+}
+
+export {SmoothScrollKill};

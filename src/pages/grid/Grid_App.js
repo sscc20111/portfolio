@@ -202,7 +202,7 @@ const imgMotion = (e) => {
     const Y = maxY * Math.sin(yDecimal);
 
     imgtargets.forEach((target, index) => {
-      gsap.to(target, { x: X, y: Y, delay: 0.03 * index, duration:1.5, ease: `Power${index + 1}.easeOut` });
+      gsap.to(target, { x: X, y: Y, delay: 0.02 * index, duration:1.5, ease: `Power${index + 1}.easeOut` });
     });
 };
 

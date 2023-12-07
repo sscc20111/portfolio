@@ -1,6 +1,13 @@
 /* .contentBox {width: 50%;} */
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
-.about.transitionBox {font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;}
+.aboutWrap.transitionBox {font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;}
+
+.aboutWrap {}
+.aboutWrap .imgBox div {}
+.aboutWrap .imgBox div canvas {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+.aboutWrap .imgBox .imgset {width: 400px; max-width: 100%; }
+.aboutWrap .imgBox .backgroundset {width: 450px; max-width: 100%; }
+
 
 .fakeBox { height: 100%; display: none; }
 .fakeBox.flipActive { display: block; }

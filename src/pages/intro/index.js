@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Power1, Power3 } from 'gsap';
 
@@ -8,17 +8,10 @@ import LogoApp from './intro_App'
 import logoImg from './img/intro.jpg';
 
 import Container from 'react-bootstrap/Container';
-import SmoothScroll from "../../js/SmoothScroll";
-
-// const introOut = () => {
-//     gsap.to('.logo_main', {scale: 0, duration:0.5, delay:0.2,  ease: Power3.easeInOut})
-//     gsap.to('.logo_outline', {scale: 0, duration:0.5, delay:0.6,  ease: Power3.easeInOut})
-//     gsap.to('.logo_background', {scale: 0, duration:0.5, delay:0.4,  ease: Power3.easeInOut})
-// }
+import {SmoothScrollKill} from "../../js/SmoothScroll";
 
 const introSet = (main, outline, background) => {
     new LogoApp(main,{
-        size : 550,
         background : {
             backgroundStyles : 'img',
             src : logoImg,
@@ -34,14 +27,12 @@ const introSet = (main, outline, background) => {
         speed : 300
     });
     new LogoApp(outline,{
-        size : 600,
         background : {
             backgroundStyles : 'line',
         },
         speed : 300
     });
     new LogoApp(background,{
-        size : 600,
         background : {
             backgroundStyles : 'color',
             backgroundColor : '#80B1C2',
@@ -49,48 +40,51 @@ const introSet = (main, outline, background) => {
         },
         speed : 1000
     });
-    introIn(main, outline, background)
+    introMotion().In();
 }
 
-const introIn = (main, outline, background) => {
-    //gsap-scale동작시 translate오류 리셋
-    gsap.set(main, {xPercent: -50, yPercent: -50, scale:0})
-    gsap.set(outline, {xPercent: -50, yPercent: -50, scale:0})
-    gsap.set(background, {xPercent: -50, yPercent: -50, scale:0})
-
-    gsap.to(main, {scale: 1, duration:0.5, delay:0.6,  ease: Power1.easeInOut})
-    gsap.to(outline, {scale: 1, duration:0.5, delay:0.9,  ease: Power1.easeInOut})
-    gsap.to(background, {scale: 1, duration:0.5, delay:0.2,  ease: Power1.easeInOut})
-}
-
-const introOut = (main, outline, background) => {
-    gsap.to(main, {scale: 0, duration:0.5, delay:0.2,  ease: Power3.easeInOut})
-    gsap.to(outline, {scale: 0, duration:0.5, delay:0.6,  ease: Power3.easeInOut})
-    gsap.to(background, {scale: 0, duration:0.5, delay:0.4,  ease: Power3.easeInOut})
+const introMotion = () => {
+    const main = '.logo_main';
+    const outline = '.logo_outline';
+    const background = '.logo_background';
+    const In = () => {
+        //gsap-scale동작시 translate오류 리셋
+        gsap.set(main, {xPercent: -50, yPercent: -50, scale:0})
+        gsap.set(outline, {xPercent: -50, yPercent: -50, scale:0})
+        gsap.set(background, {xPercent: -50, yPercent: -50, scale:0})
+    
+        gsap.to(main, {scale: 1, duration:0.5, delay:0.6,  ease: Power1.easeInOut})
+        gsap.to(outline, {scale: 1, duration:0.5, delay:0.9,  ease: Power1.easeInOut})
+        gsap.to(background, {scale: 1, duration:0.5, delay:0.2,  ease: Power1.easeInOut})
+    }
+    
+    const Out = () => {
+        gsap.to(main, {scale: 0, duration:0.5, delay:0.2,  ease: Power3.easeInOut})
+        gsap.to(outline, {scale: 0, duration:0.5, delay:0.6,  ease: Power3.easeInOut})
+        gsap.to(background, {scale: 0, duration:0.5, delay:0.4,  ease: Power3.easeInOut})
+    }
+    return {In, Out}
 }
 
 
 const IntroApp = () => {
-    const location = useLocation();
-    const logoElement = document.querySelector('.logo_main');
-    const [prevLocation, setPrevLocation] = useState('/');
+    const navigate = useNavigate();
+    const introDuration = 5000;
 
     useEffect(() => {
-        if(prevLocation.pathname !== '/'){
-            if(logoElement){
-                setTimeout(() => {
-                    introSet('.logo_main','.logo_outline', '.logo_background')
-                    document.body.style.height = '100vh' //about_page  SmoothScroll에서 실행한 body height 초기화
-                }, 100);
-            }
-        }
-        setPrevLocation(location);
-    });
+        introSet('.logo_main','.logo_outline', '.logo_background')
+        SmoothScrollKill() //SmoothScroll에서 실행된 body.height 초기화
+
+        setTimeout(() => {
+            navigate('/grid');
+            introMotion().Out();
+        }, introDuration);
+    },[]);
 
     return (
-        <div className="introBox transitionBox" style={{width: '100vw', height: '100vh'}}>
+        <div className="introWrap transitionBox" style={{width: '100vw', height: '100vh'}}>
             <Container className='w-100 h-100 position-relative'>
-                <Link className="logo_main position-absolute top-50 start-50 z-3" to="/grid" onClick={() => introOut('.logo_main','.logo_outline', '.logo_background')}></Link>
+                <Link className="logo_main position-absolute top-50 start-50 z-3" to="/grid" onClick={() => introMotion().Out()}></Link>
                 <div className="logo_outline position-absolute top-50 start-50 z-2"></div>
                 <div className="logo_background position-absolute top-50 start-50 z-1"></div>
             </Container>

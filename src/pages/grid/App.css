@@ -18,14 +18,23 @@ img {width: 100%;height: 100%; object-fit: cover;}
 .gridApp .item .contBox .BoxCover {position: absolute; top: 0;bottom: 0;left: 0;right: 0; z-index: 10; transition: right 0.5s cubic-bezier(0.66, 0.08, 0.21, 1.07);}
 .gridApp .item .contBox.Motion1_complet .BoxCover {right: 100%;}
 .gridApp .item .contBox .imgBox {position: relative; overflow: hidden; width: 100%; height: 100%; z-index: 9; opacity: 0; background: #000;}
-.gridApp .item .contBox .imgBox img {position: absolute; transform: scale(1.2);}
+.gridApp .item .contBox .imgBox img {position: absolute; display: block; transform: scale(1.2); z-index: 8;}
+.gridApp .item .contBox .imgBox img.ImgItem-exit-active { opacity: 0; z-index: 9; transition: opacity 0.3s cubic-bezier(0.57, 0.01, 0.3, 0.99);}
 
 .gridApp .item .textBox {position: absolute; top: 0;bottom: 0;left: 0;right: 0; z-index: 11; text-align: left; filter: blur(10px); opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.66, 0.08, 0.21, 1.07);}
 .gridApp .item .textBox a {font-size: 75px; font-weight: 600; color: #000; white-space: nowrap; display: inline-block;}
-.gridApp .item .textBox span {font-size: 30px; font-weight: 600; color: #000; display: block; white-space: nowrap;}
+
 .gridApp .item2 .textBox {top: auto;}
+.gridApp .item2 .textBox .textWrap { position: absolute; bottom: 20%; }
+.gridApp .item2 .textBox .textWrap span {font-size: 20px; line-height: 1.4; font-weight: 400; color: #000; display: block; white-space: nowrap;}
+.gridApp .item2 .textBox .textWrap.TextItem-enter {opacity: 0;}
+.gridApp .item2 .textBox .textWrap.TextItem-enter-done {animation-name: textTransition; animation-duration: 0.35s;}
+.gridApp .item2 .textBox .textWrap.TextItem-exit-active {opacity: 0; transition: 0.3s opacity 0s cubic-bezier(0.57, 0.01, 0.3, 0.99);}
 
-
+@keyframes textTransition {
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
 
 
 

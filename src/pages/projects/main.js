@@ -28,6 +28,13 @@ const ProjectsView = (props) => {
                 desc: ['같은 그림찾기 게임을 만들어보았습니다.'],
                 skills: ['React.js', 'JavaScript']
             };
+            case 'Wave': return {
+                link:'wave',
+                source:require('./img/cardGame.png'),
+                title:'Wave',
+                desc: ['같은 그림찾기 게임을 만들어보았습니다.'],
+                skills: ['React.js', 'JavaScript']
+            };
             case 'canvas': return {
                 link:'/',
                 source:require('./img/canvas.png'),
@@ -84,7 +91,7 @@ const ProjectsView = (props) => {
 }
 
 const Main = () => {
-    const toyProjects = ['Todo-List','CardGame'];
+    const toyProjects = ['Todo-List','CardGame','Wave'];
     const myProjects = ['canvas', 'GSAP', 'GuestBook'];
 
     const [viewimg,setViewimg] = useState('')
@@ -97,11 +104,11 @@ const Main = () => {
         gsap.set(target, {opacity:0})
         gsap.to(target, {opacity: 1, duration:0.6,  ease: Power3.easeInOut})
     }
-    useEffect(() => {
-        SmoothScroll(".transitionBox", ".transition-group", 1);
-    }, []);
+    // useEffect(() => {
+    //     SmoothScroll(".transitionBox", ".transition-group", 1);
+    // }, []);
     return (
-        <div className='projectsWrap transitionBox'>
+        <div className='projectsWrap Ntransition'>
             <Container className='d-flex pt-5'>
                 <div className='projectslist' style={{width:'45%'}}>
                     <h3 className='fs-2 fw-normal mb-4'>Projects List</h3>

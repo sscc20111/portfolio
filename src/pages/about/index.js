@@ -21,44 +21,40 @@ import './App.css';
 
 
 
-const About = () => {
-    const introSet = (main, background) => {
-        new LogoApp(main,{
-            size : 450,
-            background : {
-                backgroundStyles : 'img',
-                src : logoImg,
-                globalAlpha : 1
-            },
-            shadow : 'true',
-            shadowOption : {
-                color : 'rgba(0, 0, 0, 0.6)',//rgba 형식
-                blur : 15, //반응형에서는 화면 넓이에 비례해 줄어듬
-                x : -5,
-                y : 5
-            },
-            speed : 300
-        });
-        new LogoApp(background,{
-            size : 550,
-            background : {
-                backgroundStyles : 'color',
-                backgroundColor : '#80B1C2',
-                globalAlpha : 0.8
-            },
-            speed : 300
-        });
-        introIn(main, background)
-    }
-    const introIn = (main, background) => {
-        //gsap-scale동작시 translate오류 리셋
-        gsap.set(main, {xPercent: -50, yPercent: -50, scale:0})
-        gsap.set(background, {xPercent: -50, yPercent: -50, scale:0})
-    
-        gsap.to(main, {scale: 1, duration:0.5, delay:2.1,  ease: Power1.easeInOut})
-        gsap.to(background, {scale: 1, duration:0.5, delay:1.7,  ease: Power1.easeInOut})
-    }
+const introSet = () => {
+    const main = '.imgset'
+    const background = '.backgroundset'
+    new LogoApp(main,{
+        background : {
+            backgroundStyles : 'img',
+            src : logoImg,
+            globalAlpha : 1
+        },
+        shadow : 'true',
+        shadowOption : {
+            color : 'rgba(0, 0, 0, 0.6)',//rgba 형식
+            blur : 15, //반응형에서는 화면 넓이에 비례해 줄어듬
+            x : -5,
+            y : 5
+        },
+        speed : 300
+    });
+    new LogoApp(background,{
+        background : {
+            backgroundStyles : 'color',
+            backgroundColor : '#80B1C2',
+            globalAlpha : 0.8
+        },
+        speed : 300
+    });
+    gsap.set(main, {xPercent: -50, yPercent: -50, scale:0})
+    gsap.set(background, {xPercent: -50, yPercent: -50, scale:0})
 
+    gsap.to(main, {scale: 1, duration:0.5, delay:2.1,  ease: Power1.easeInOut})
+    gsap.to(background, {scale: 1, duration:0.5, delay:1.7,  ease: Power1.easeInOut})
+}
+
+const About = () => {
     const MouseMove = (e) => {
         const target = document.querySelector('.projects_link');
         const MotionBox = document.querySelector('.motionBox');
@@ -85,7 +81,7 @@ const About = () => {
             ease: "power3.inOut"
         });
 
-        const about = document.querySelector('.about')
+        const about = document.querySelector('.aboutWrap')
         setTimeout(() => { //grid 이동 모션시 어색함 수정
             about.style.display = "none";
             flipTo.style.display = "none";
@@ -93,22 +89,24 @@ const About = () => {
     }
 
     useEffect(() => {
-        introSet('.imgset', '.backgroundset');
         setTimeout(() => {
             SmoothScroll(".transitionBox", ".transition-group", 1);
+            setTimeout(() => {
+                introSet();
+            }, 10);
         }, 10);
     }, []);
-    return(
+    return( 
         <>
-        <div className='about transitionBox bg-white py-5'>
+        <div className='aboutWrap transitionBox bg-white py-5'>
             <Container className="" style={{maxWidth:'1000px'}}>
                 <Stack gap={5}>
                     <Stack className='contentBox justify-content-between align-items-end flex-wrap z-0' direction='horizontal'>
                         <div className='w-50' style={{maxWidth:'450px'}}>
                             <div className='imgBox position-relative'>
-                                <div className='imgset position-absolute top-50 start-50 z-3'></div>
-                                <div className='backgroundset position-absolute top-50 start-50 z-2'></div>
                                 <img src={backgroundImg}></img>
+                                <div className='imgset position-absolute top-50 start-50 z-3 h-100'></div>
+                                <div className='backgroundset position-absolute top-50 start-50 z-2 h-100'></div>
                             </div>
                         </div>
                         <div className='nameWrap w-50 ps-3'>
@@ -130,7 +128,7 @@ const About = () => {
                             </ul>
                         </div>
                     </Stack>
-                    <div className='mb-4 z-1 trigger'>
+                    <div className='z-1 trigger'>
                         <Stack gap={4} className='introWrap lh-base'>
                             <p>
                                 안녕하세요, 프론트엔드 개발자 남민우입니다.
@@ -149,20 +147,94 @@ const About = () => {
                             </p>
                         </Stack>
                     </div>
-                    <div className="mb-4 ">
-                        <h4 className="mb-4 fs-2 fw-bold" style={{color:'#735a3c'}}>WORK EXPERIENCE</h4>
-                        <ul className='ps-0' style={{maxWidth:'400px'}}>
-                            <li className='d-flex align-items-center mb-3' style={{fontSize:'1rem'}}>
-                                <p className="mb-0 w-50">(주)이프론트</p>
-                                <span className='w-50'>2021.11.24 ~ 2022.12.30</span>
+                    <div className="">
+                        <h4 className="mb-4 fs-2 fw-bold" style={{color:'#735a3c'}}>EDUCATION</h4>
+                        <ul className='ps-0' style={{maxWidth:'500px'}}>
+                            <li className='mb-4' style={{fontSize:'1rem'}}>
+                                <h5 className='d-flex align-items-center fs-5 mb-4'>
+                                    <p className="mb-0 fw-semibold">경기과학기술대학교</p>
+                                    <span className='ps-2 fs-6 fw-light'>(2013.03 ~ 2018.02)</span>
+                                </h5>
+                                <ul style={{paddingInlineStart: '2rem'}}>
+                                    <li className='mb-3' style={{listStyle: 'disc'}}>기계설계학과 전공 졸업</li>
+                                </ul>
                             </li>
-                            <li className='d-flex align-items-center' style={{fontSize:'1rem'}}>
-                                <p className="mb-0 w-50">IIBI 방송정보국제교육원</p>
-                                <span className='w-50'>2021.05.25 ~ 2021.10.05</span>
+                            <li className='' style={{fontSize:'1rem'}}>
+                                <h5 className='d-flex align-items-center fs-5 mb-4'>
+                                    <p className="mb-0 fw-semibold">IIBI 방송정보국제교육원</p>
+                                    <span className='ps-2 fs-6 fw-light'>(2021.05.25 ~ 2021.10.05)</span>
+                                </h5>
+                                <ul style={{paddingInlineStart: '2rem'}}>
+                                    <li className='mb-3' style={{listStyle: 'disc'}}>웹퍼블리싱 교육 이수</li>
+                                    <li className='mb-3' style={{listStyle: 'disc'}}>웹 디자인 교육이수</li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
-                    <div className="mb-4 ">
+                    <div className="">
+                        <h4 className="mb-4 fs-2 fw-bold" style={{color:'#735a3c'}}>WORK EXPERIENCE</h4>
+                        <ul className='ps-0' style={{maxWidth:'500px'}}>
+                            <li className='mb-4' style={{fontSize:'1rem'}}>
+                                <h5 className='d-flex align-items-center fs-5 mb-4'>
+                                    <p className="mb-0 fw-semibold">(주)이프론트</p>
+                                    <span className='ps-2 fs-6 fw-light'>(2021.11.24 ~ 2022.12.30)</span>
+                                </h5>
+                                <ul style={{paddingInlineStart: '2rem'}}>
+                                    <li className='mb-3 fs-6' style={{listStyle: 'disc'}}>
+                                        <a href="http://wowm.1004home.kr/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>와우엠</a>
+                                        <span className='ms-2 fw-light' style={{fontSize:'0.8rem'}}>(기업홍보, Fullpage개발(Parallax), 게시판 관리)</span>
+                                    </li>
+                                    <li className='mb-3 fs-6' style={{listStyle: 'disc'}}>
+                                        <a href="http://iaan.1004home.kr/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>이안</a>
+                                        <span className='ms-2 fw-light' style={{fontSize:'0.8rem'}}>(기업홍보, svg모션, 게시판 관리)</span>
+                                    </li>
+                                    <li className='mb-3 fs-6' style={{listStyle: 'disc'}}>
+                                        <a href="http://jeanficial.1004home.kr/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>장피셜</a>
+                                        <span className='ms-2 fw-light' style={{fontSize:'0.8rem'}}>(기업홍보, 웹 디자인 중점)</span>
+                                    </li>
+                                    <li className='mb-3 fs-6' style={{listStyle: 'disc'}}>
+                                        <a href="http://ccmlaw.1004home.kr/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>충만법무법인</a>
+                                        <span className='ms-2 fw-light' style={{fontSize:'0.8rem'}}>(기업홍보, 상담접수)</span>
+                                    </li>
+                                    <li className='mb-3 fs-6' style={{listStyle: 'disc'}}>
+                                        <a href="http://com2verse.1004home.kr/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>컴투버스</a>
+                                        <span className='ms-2 fw-light' style={{fontSize:'0.8rem'}}>(기업홍보, 게시판 관리)</span>
+                                    </li>
+                                    <li className='mb-3 fs-6' style={{listStyle: 'disc'}}>
+                                        <a href="http://muirim.com/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>무이림</a>
+                                        <span className='ms-2 fw-light' style={{fontSize:'0.8rem'}}>(숙박업체, 객실홍보, 예약관리)</span>
+                                    </li>
+                                    <li className='mb-3 fs-6' style={{listStyle: 'disc'}}>
+                                        <a href="https://www.kandesign.kr/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>칸디자인</a>
+                                        <span className='ms-2 fw-light' style={{fontSize:'0.8rem'}}>(기업홍보)</span>
+                                    </li>
+                                    <li className='mb-3 fs-6' style={{listStyle: 'disc'}}>
+                                        <a href="http://pidotech.1004home.kr/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>피도텍</a>
+                                        <span className='ms-2 fw-light' style={{fontSize:'0.8rem'}}>(기업홍보, Fullpage개발, 게시판 관리)</span>
+                                    </li>
+                                    <li className='mb-3 fs-6' style={{listStyle: 'disc'}}>
+                                        <a href="http://apsun.1004home.kr/" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'underline', textUnderlinePosition: 'under'}}>앞썬</a>
+                                        <span className='ms-2 fw-light' style={{fontSize:'0.8rem'}}>(기업홍보, 상품관리, 게시판 관리)</span>
+                                    </li>
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="">
+                        <h4 className="mb-4 fs-2 fw-bold" style={{color:'#735a3c'}}>OTHER EXPERIENCE</h4>
+                        <ul className='ps-0' style={{maxWidth:'400px'}}>
+                            <li className='d-flex align-items-center mb-3' style={{fontSize:'1rem'}}>
+                                <p className="mb-0 w-50">아이엠티주식회사</p>
+                                <span className='w-50'>2018.04 - 2019.08</span>
+                            </li>
+                            <li className='d-flex align-items-center mb-3' style={{fontSize:'1rem'}}>
+                                <p className="mb-0 w-50">기아(주)AutoLand광명</p>
+                                <span className='w-50'>2017.07 - 2018.01</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="">
                         <h4 className="mb-4 fs-2 fw-bold" style={{color:'#735a3c'}}>SKILLS</h4>
                         <Stack gap={4}>
                             <div>

@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faRotateLeft, faPenToSquare, faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
-
-import { Button } from 'react-bootstrap';
 
 
 const Lists = ({Tododata, Togle, Edit, Delete, Visible}) => {
@@ -66,13 +62,5 @@ const Lists = ({Tododata, Togle, Edit, Delete, Visible}) => {
         )
     }
 }
-// const CompletedLists = (props) => {
-//     console.log(props.status)
-//     return(
-
-//     ) 
-// }
-
 
 export default Lists;
-// export {CompletedLists}

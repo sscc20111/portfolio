@@ -3,7 +3,8 @@ import { gsap } from 'gsap';
 import { Power1, Power2, Power3 } from 'gsap';
 import './App.css';
 import Gridset , {Gird_Motion, text_Motion, handleMouseEnter, imgMotion} from './Grid_App'
-import SmoothScroll from "../../js/SmoothScroll";
+import {SmoothScrollKill} from "../../js/SmoothScroll";
+
 
 import GridImg1 from './img/GridImg1.png';
 import GridImg2 from './img/GridImg2.png';
@@ -11,26 +12,83 @@ import GridImg3 from './img/GridImg3.png';
 import Test1 from './img/test1.png';
 import Test2 from './img/test2.png';
 import Test3 from './img/test3.png';
-import { Container, Stack } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
+
+const ItemData = (item) => {
+  switch (item) {
+    case '0': return {
+      title:'About',
+      img: [GridImg1,GridImg2,GridImg3],
+      desc: ['안녕하세요','프론트엔드 개발자 남민우 입니다.'],
+    };
+    case '1': return {
+      title:'Making',
+      img: [Test1,Test2,Test3],
+      desc: ['포트폴리오 제작에 대한 이야기입니다.'],
+    };
+    case '2': return {
+      title:'Projects',
+      img: [GridImg1,GridImg2,GridImg3],
+      desc: ['포트폴리오에 작성된 프로젝트 페이지입니다.','간략한 설명과 토이프로젝트 들이 있습니다.'],
+    };
+    case '3': return {
+      title:'GuestBook',
+      img: [Test1,Test2,Test3],
+      desc: ['방명록 작성이 가능한 페이지 입니다.','방문하셔서 작성해주시면 큰 힘이됩니다!', '피드백이나 방향성 적어주시면 반영하겠습니다.'],
+    };
+    case '4': return {
+      title:'Contact',
+      img: [GridImg1,GridImg2,GridImg3],
+      desc: [],
+    };
+    default: return {
+      title:'About',
+      img: [GridImg1,GridImg2,GridImg3],
+      desc: ['안녕하세요','프론트엔드 개발자 남민우 입니다.'],
+    };
+  }
+}
+
+const ImgSet = ({ Target, section }) => {
+  const Img =  <img src={ItemData(Target).img[section]} />
+  return (
+    <TransitionGroup className='imgBox'>
+      <CSSTransition key={Target} timeout={350} classNames="ImgItem">
+        <>{Img}</>
+      </CSSTransition>
+    </TransitionGroup>
+  );
+};
+const TextSet = ({ Target }) => {
+  const Text = <div className='textWrap'>{ItemData(Target).desc.map((item, index) => <span key={index}>{item}</span>)}</div>;
+  return (
+    <TransitionGroup className='textBox'>
+      <CSSTransition key={Target} timeout={350} classNames="TextItem">
+        <>{Text}</>
+      </CSSTransition>
+    </TransitionGroup>
+  );
+};
 
 
 const App = (pages) => {
-  const [gridimg,imgset] = useState([GridImg1,GridImg2,GridImg3])
-  const [gridprevimg,previmgset] = useState([GridImg1,GridImg2,GridImg3])
+  const [TargetKey,setTargetKey] = useState('')
+
   useEffect(()=>{
-    // SmoothScroll(".gridBox.transitionBox", ".transition-group", 1);
     Gridset('.gridApp','#B89569');
     Gird_Motion().MotionIn()
     setTimeout(() => { //grid 이동 모션시 어색함 수정
-      // document.body.style.height = '100vh' //about_page  SmoothScroll에서 실행한 body height 초기화
+      SmoothScrollKill() //SmoothScroll에서 실행된 body.height 초기화
   }, 500);
   },[]);
 
   const mouseenter = (e) => {
     text_Motion().MouseIn().mouseenter(e.target)
-    imgtest(e)
+    setTargetKey(e.target.dataset.key)
+    imgEnter(e)
   }
   const click = (e) => {
     text_Motion().MouseIn().click(e.target, (pages.delay/1000))
@@ -42,50 +100,24 @@ const App = (pages) => {
     imgMotion(e)
   }
 
-  const imgtest = (e) => {
-    const i = e.target.dataset.key
-    const test = [
-      {img1:GridImg1,img2:GridImg2,img3:GridImg3},
-      {img1:Test1,img2:Test2,img3:Test3},
-      {img1:GridImg1,img2:GridImg2,img3:GridImg3},
-      {img1:Test1,img2:Test2,img3:Test3},
-      {img1:GridImg1,img2:GridImg2,img3:GridImg3},
-      {img1:Test1,img2:Test2,img3:Test3},
-      {img1:GridImg1,img2:GridImg2,img3:GridImg3}
-    ]
-
-    const target = document.querySelectorAll('.imgBox .z-1');
-    const otargets = Array.from(document.querySelectorAll('.imgBox .z-0'));
-    gsap.killTweensOf(target);
-    gsap.killTweensOf(otargets);
-    
-    previmgset([gridimg[0],gridimg[1],gridimg[2]])
-
+  const imgEnter = (e) => {
     setTimeout(() => {// 깜빡임 오류 해결
-      imgset([test[i].img1,test[i].img2,test[i].img3])
-      gsap.set(target, {opacity:1})
-      gsap.to(target, {opacity:0, duration:0.35, ease: Power2.easeInOut})
-      if(handleMouseEnter(e) === 'down'){
-        otargets.forEach((targets, index) => {
-          gsap.set(targets, {y:`${index*5 + 10}px`})
-        })
-      }else{
-        otargets.forEach((targets, index) => {
-          gsap.set(targets, {y:`-${index*5 + 10}px`})
-        })
-      }
+      const target = document.querySelectorAll('.imgBox .ImgItem-enter');
+  
+      const checkSign = (handleMouseEnter(e) === 'down') ? '' : '-';//마우스 진입방향 감지
+      
+      target.forEach((targets, index) => {
+        gsap.set(targets, {y:`${checkSign}${index*3 + 5}px`})
+      })
     }, 10);
   }
   return (
-    <div className='w-100 h-100 transitionBox gridBox' style={{background:'#fff'}}>
+    <div className='w-100 h-100 transitionBox gridWrap' style={{background:'#fff'}}>
       <div className='gridApp w-100 m-auto' style={{maxWidth:'1600px'}}>
         <div className="item item1">
           <div className='contBox'>
             <div className='BoxCover'></div>
-            <div className='imgBox'>
-              <img className='z-0' src={gridimg[0]}></img>
-              <img className='z-1' src={gridprevimg[0]}></img>
-            </div>
+              <ImgSet Target={TargetKey} section={0}></ImgSet>
           </div>
         </div>
         <div className="item item2">
@@ -93,16 +125,14 @@ const App = (pages) => {
             <div className='BoxCover'></div>
           </div>
           <div className='textBox ms-4'>
-              <span>hello</span>
-              <span>welcome to my portfolio</span>
+            <TextSet Target={TargetKey}></TextSet>
           </div>
         </div>
         <div className="item item3">
           <div className='contBox'>
             <div className='BoxCover'></div>
             <div className='imgBox'>
-              <img className='z-0' src={gridimg[1]}></img>
-              <img className='z-1' src={gridprevimg[1]}></img>
+              <ImgSet Target={TargetKey} section={1}></ImgSet>
             </div>
           </div>
         </div>
@@ -110,17 +140,17 @@ const App = (pages) => {
           <div className='contBox'>
             <div className='BoxCover'></div>
           </div>
-          <Stack className='textBox' style={{alignItems: 'flex-start', justifyContent: 'flex-end'}}>
+          <Stack className='textBox ps-3 pb-3' style={{alignItems: 'flex-start', justifyContent: 'flex-end'}}>
               <Link className='mb-2' to='/about' data-key='0' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>About</Link>
-              <Link className='mb-2' to='/projects' data-key='1' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>My Projects</Link>
+              <Link className='mb-2' to='/making' data-key='1' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>Making</Link>
+              <Link className='mb-2' to='/projects' data-key='2' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>My Projects</Link>
           </Stack>
         </div>
         <div className="item item5">
           <div className='contBox'>
             <div className='BoxCover'></div>
             <div className='imgBox'>
-              <img className='z-0' src={gridimg[2]}></img>
-              <img className='z-1' src={gridprevimg[2]}></img>
+              <ImgSet Target={TargetKey} section={2}></ImgSet>
             </div>
           </div>
         </div>
@@ -128,9 +158,9 @@ const App = (pages) => {
           <div className='contBox'>
             <div className='BoxCover'></div>
           </div>
-          <Stack className='textBox' style={{alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-              {/* <a className='mb-2' data-key='2' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>Login</a> */}
-              <Link to='/guestbook' className='mb-2' data-key='2' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>GuestBook</Link>
+          <Stack className='textBox pe-3 pb-3' style={{alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+              <Link to='/guestbook' className='mb-2' data-key='3' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>GuestBook</Link>
+              <Link to='/contact' className='mb-2' data-key='4' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>Contact</Link>
           </Stack>
         </div>
       </div>

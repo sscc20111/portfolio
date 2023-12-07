@@ -1,5 +1,4 @@
 import React from 'react';
-import Col from 'react-bootstrap/Col';
 
 const Main = (props) => {
     return(
@@ -38,7 +37,7 @@ const Clock = (props) => {
 
     return(
         <>
-                {ClockApp}
+            {ClockApp}
         </>
     ) 
 }

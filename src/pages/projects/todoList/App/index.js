@@ -159,12 +159,12 @@ const NoteApp = () => {
                             </div>
                             <div className='ListWrap p-4'>
                                     <TransitionGroup className="todo-list">
-                                        {Array.isArray(ListData) ? (
+                                        {Array.isArray(ListData) && (
                                         ListData.map((item) =>  (
                                         <CSSTransition key={item.id} timeout={300} classNames="item" >
                                             <Lists id={item.id} Tododata={item} Togle={DataTogle} Edit={DataEdit} Visible={IsListTogle} Delete={ListDelete} />
                                         </CSSTransition>
-                                        ))) : null}
+                                        )))}
                                     </TransitionGroup>
                                     <div className='createList'>
                                         <input type="text" className="todolist__input" value={ListText} onChange={(e) => setText(e.target.value)} />
