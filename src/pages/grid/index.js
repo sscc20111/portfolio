@@ -6,9 +6,6 @@ import Gridset , {Gird_Motion, text_Motion, handleMouseEnter, imgMotion} from '.
 import {SmoothScrollKill} from "../../js/SmoothScroll";
 
 
-import GridImg1 from './img/GridImg1.png';
-import GridImg2 from './img/GridImg2.png';
-import GridImg3 from './img/GridImg3.png';
 import Test1 from './img/test1.png';
 import Test2 from './img/test2.png';
 import Test3 from './img/test3.png';
@@ -21,17 +18,17 @@ const ItemData = (item) => {
   switch (item) {
     case '0': return {
       title:'About',
-      img: [GridImg1,GridImg2,GridImg3],
+      img: [require('./img/About1.png'),require('./img/About2.png'),require('./img/About3.png')],
       desc: ['안녕하세요','프론트엔드 개발자 남민우 입니다.'],
     };
     case '1': return {
       title:'Making',
-      img: [Test1,Test2,Test3],
+      img: [require('./img/Making1.png'),require('./img/Making2.png'),require('./img/Making3.png')],
       desc: ['포트폴리오 제작에 대한 이야기입니다.'],
     };
     case '2': return {
       title:'Projects',
-      img: [GridImg1,GridImg2,GridImg3],
+      img: [require('./img/Projects1.png'),require('./img/Projects2.png'),require('./img/test3.png')],
       desc: ['포트폴리오에 작성된 프로젝트 페이지입니다.','간략한 설명과 토이프로젝트 들이 있습니다.'],
     };
     case '3': return {
@@ -41,12 +38,12 @@ const ItemData = (item) => {
     };
     case '4': return {
       title:'Contact',
-      img: [GridImg1,GridImg2,GridImg3],
+      img: [],
       desc: [],
     };
     default: return {
       title:'About',
-      img: [GridImg1,GridImg2,GridImg3],
+      img: [require('./img/About1.png'),require('./img/About2.png'),require('./img/About3.png')],
       desc: ['안녕하세요','프론트엔드 개발자 남민우 입니다.'],
     };
   }
@@ -88,7 +85,7 @@ const App = (pages) => {
   const mouseenter = (e) => {
     text_Motion().MouseIn().mouseenter(e.target)
     setTargetKey(e.target.dataset.key)
-    imgEnter(e)
+    imgMouseEnter(e)
   }
   const click = (e) => {
     text_Motion().MouseIn().click(e.target, (pages.delay/1000))
@@ -100,7 +97,7 @@ const App = (pages) => {
     imgMotion(e)
   }
 
-  const imgEnter = (e) => {
+  const imgMouseEnter = (e) => {
     setTimeout(() => {// 깜빡임 오류 해결
       const target = document.querySelectorAll('.imgBox .ImgItem-enter');
   
