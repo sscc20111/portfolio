@@ -1,19 +1,98 @@
-import React, { useEffect, useState } from 'react';
-import { gsap } from 'gsap';
-import { Power1, Power2, Power3 } from 'gsap';
-import './App.css';
-import Gridset , {Gird_Motion, text_Motion, handleMouseEnter, imgMotion} from './Grid_App'
-import {SmoothScrollKill} from "../../js/SmoothScroll";
+import React, { useEffect, useState, useRef } from 'react';
 
+import { gsap } from 'gsap';
+// import { Power1, Power2, Power3 } from 'gsap';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
+import { Button, FloatingLabel, Form, FormControl, Stack } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import Gridset , { Gird_Motion, text_Motion, handleMouseEnter, imgMotion } from './Grid_App'
+import { SmoothScrollKill } from "../../js/SmoothScroll";
+
+import emailjs from '@emailjs/browser';
 
 import Test1 from './img/test1.png';
 import Test2 from './img/test2.png';
 import Test3 from './img/test3.png';
-import { Stack } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import './App.css';
 
+const ContactForm = ({contactHiden}) => {
+  // const []
+  
+  useEffect(()=>{
+    setTimeout(() => {
+      const background = document.querySelector('.contact')
+      background.style.backgroundColor  = '#00000052';
+    }, 10);
 
+    gsap.to('.contactWrap',{duration:0.3, opacity:1})
+},[])
+
+const close = () => {
+  contactHiden()
+  const background = document.querySelector('.contact')
+  background.style.backgroundColor  = '#00000000';
+
+}
+
+const form = useRef();
+
+const sendEmail = (e) => {
+  e.preventDefault();
+console.log(form.current.namename)
+  emailjs.sendForm('service_cgyffo9', 'template_yp7j9gj', form.current, 'CbApPngOAIHNzwwgW')
+    .then((result) => {
+        console.log(result.text);
+    }, (error) => {
+        console.log(error.text);
+    });
+};
+  return(
+    <div className='contact w-100 h-100'>
+      <div className='contactWrap p-4'>
+        <div className='contactStage p-3'>
+          <div className='closeBtn' onClick={close}><FontAwesomeIcon icon={faXmark} /></div>
+          <h2 className='pt-5'>CONTACT ME</h2>
+          <div className='contactConts pt-5'>
+            <div className='leftBox'>
+              <h3 className='mb-5'>남민우 <span>Nam Minwoo</span></h3>
+              <ul>
+                <li className='mb-4'>
+                  <h4 className='mb-2 pt-2'>E-MAIL:</h4>
+                  <p>sscc20111@naver.com</p>
+                </li>
+                <li>
+                  <h4 className='mb-2 pt-2'>PHONE:</h4>
+                  <p>010-9255-9404</p>
+                </li>
+              </ul>
+            </div>
+            <div className='rightBox'>
+              <Form ref={form} className='gform' onSubmit={sendEmail}>
+                <Form.Group>
+                  <FloatingLabel label='이름 또는 회사명 *' className='mb-3'>
+                    <FormControl type='text' name="name"></FormControl>
+                  </FloatingLabel>
+                  <FloatingLabel label='이메일 *' className='mb-3'>
+                    <FormControl type='email' name="email"></FormControl>
+                  </FloatingLabel>
+                  <FloatingLabel label='메시지 *' className='mb-3'>
+                    <FormControl as="textarea" name="message" placeholder="Leave a comment here" style={{ height: '200px' }}></FormControl>
+                  </FloatingLabel>
+                </Form.Group>
+                <Button onClick={sendEmail} variant="dark">Send</Button>
+              </Form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 const ItemData = (item) => {
   switch (item) {
     case '0': return {
@@ -38,7 +117,7 @@ const ItemData = (item) => {
     };
     case '4': return {
       title:'Contact',
-      img: [],
+      img: [require('./img/About1.png'),require('./img/About2.png'),require('./img/About3.png')],
       desc: [],
     };
     default: return {
@@ -73,6 +152,7 @@ const TextSet = ({ Target }) => {
 
 const App = (pages) => {
   const [TargetKey,setTargetKey] = useState('')
+  const [ContactShow,setContactShow] = useState(false)
 
   useEffect(()=>{
     Gridset('.gridApp','#B89569');
@@ -108,6 +188,24 @@ const App = (pages) => {
       })
     }, 10);
   }
+
+
+  const contactShow = () => {
+    setContactShow(true);
+    const blur = document.querySelector('.gridApp')
+
+    blur.style.filter = "blur(10px)";
+  }
+  const contactHiden = () => {
+    const blur = document.querySelector('.gridApp')
+
+    blur.style.filter = "blur(0px)";
+    setTimeout(() => {
+      setContactShow(false);
+    }, 1000);
+    gsap.to('.contactWrap',{duration:0.3, opacity:0})
+  }
+
   return (
     <div className='w-100 h-100 transitionBox gridWrap' style={{background:'#fff'}}>
       <div className='gridApp w-100 m-auto' style={{maxWidth:'1600px'}}>
@@ -157,10 +255,13 @@ const App = (pages) => {
           </div>
           <Stack className='textBox pe-3 pb-3' style={{alignItems: 'flex-end', justifyContent: 'flex-end'}}>
               <Link to='/guestbook' className='mb-2' data-key='3' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>GuestBook</Link>
-              <Link to='/contact' className='mb-2' data-key='4' onClick={click} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>Contact</Link>
+              <Link className='mb-2' data-key='4' onClick={contactShow} onMouseMove={mousemove} onMouseEnter={mouseenter} onMouseLeave={mouseleave}>Contact</Link>
           </Stack>
         </div>
       </div>
+      {ContactShow ? (
+        <ContactForm contactHiden={contactHiden}></ContactForm>
+      ):null}
     </div>
   );
 }

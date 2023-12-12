@@ -5,7 +5,7 @@ img {width: 100%;height: 100%; object-fit: cover;}
 .App-header {background-color: #282c34; min-height: 100vh; display: flex;}
 
 
-.gridApp {width: 100%;height: 100vh;}
+.gridApp {width: 100%;height: 100vh; transition: all 1s ease-in-out;}
 .gridApp .item {transition: all cubic-bezier(0.65, 0.05, 0.36, 1) 0.5s; position: relative;}
 .gridApp.MotionGo .item1 {margin: 0px  10px 10px 0px;}
 .gridApp.MotionGo .item2 {margin: 0px  10px 10px 10px;}
@@ -36,10 +36,32 @@ img {width: 100%;height: 100%; object-fit: cover;}
     to{opacity: 1;}
 }
 
+.gridWrap .contact {position: absolute; top: 0;bottom: 0;left: 0;right: 0; transition: all 0.5s ease-in-out;}
+.gridWrap .contact form {text-align: right;}
+
+.gridWrap .contactWrap {max-width: 1200px; height: 600px; width: 70%; max-height: 80%; opacity: 0; color: #fffcf8; background: #584F49; position: absolute; top: 50%;left: 50%; transform: translate(-50%, -50%); z-index: 99; }
+.gridWrap .contactWrap .contactStage {width: 100%; height: 100%; position: relative;}
+
+.gridWrap .contactWrap .contactStage .closeBtn {position: absolute; display: inline-block; top: 0; right: 0; cursor: pointer;}
+.gridWrap .contactWrap .contactStage .closeBtn {font-size: 1.5rem;}
+
+.gridWrap .contactWrap .contactStage h2 {font-size: 2.5rem; font-weight: 700; text-align: center;}
+
+.gridWrap .contactWrap .contactStage .contactConts {display: flex; justify-content: space-evenly;}
+.gridWrap .contactWrap .contactStage .contactConts .leftBox {width: 35%;}
+.gridWrap .contactWrap .contactStage .contactConts .leftBox h3 {font-size: 1.8rem; font-weight: 500;}
+.gridWrap .contactWrap .contactStage .contactConts .leftBox h3 span {font-size: 1rem; font-weight: 300;}
+.gridWrap .contactWrap .contactStage .contactConts .leftBox ul {}
+.gridWrap .contactWrap .contactStage .contactConts .leftBox ul li {}
+.gridWrap .contactWrap .contactStage .contactConts .leftBox ul li h4 {font-size: 1.3rem; font-weight: 500;}
+.gridWrap .contactWrap .contactStage .contactConts .leftBox ul li p {font-size: 1.2rem; font-weight: 300;}
 
 
-
-
+.gridWrap .contactWrap .contactStage .contactConts .rightBox { width: 50%; display: flex; flex-direction: column;}
+.gridWrap .contactWrap .contactStage .contactConts .rightBox input,
+.gridWrap .contactWrap .contactStage .contactConts .rightBox textarea {background-color: #fffcf8; border-color: #584f49;}
+.gridWrap .contactWrap .contactStage .contactConts .rightBox label {color: #000;}
+.gridWrap .contactWrap .contactStage .contactConts .rightBox label::after {background-color: #fffcf8;}
 
 
 
