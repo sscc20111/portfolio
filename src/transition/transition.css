@@ -1,5 +1,5 @@
-/* .transition-group {z-index: 102;}
-.Ntransition {width: 100%; z-index: 101; position: relative;} */
+.transition-group {z-index: 102;}
+.Ntransition {z-index: 101;}
 
 .transitionBox {position: absolute; left: 50%; transform: translateX(-50%); z-index: 99;}
 .transitionBox.fade-exit {z-index: 98;}

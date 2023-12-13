@@ -21,7 +21,7 @@ import Test3 from './img/test3.png';
 import './App.css';
 
 const ContactForm = ({contactHiden}) => {
-  // const []
+  const form = useRef();
   
   useEffect(()=>{
     setTimeout(() => {
@@ -30,27 +30,24 @@ const ContactForm = ({contactHiden}) => {
     }, 10);
 
     gsap.to('.contactWrap',{duration:0.3, opacity:1})
-},[])
+  },[])
 
-const close = () => {
-  contactHiden()
-  const background = document.querySelector('.contact')
-  background.style.backgroundColor  = '#00000000';
+  const close = () => {
+    contactHiden()
+    const background = document.querySelector('.contact')
+    background.style.backgroundColor  = '#00000000';
+  }
 
-}
-
-const form = useRef();
-
-const sendEmail = (e) => {
-  e.preventDefault();
-console.log(form.current.namename)
-  emailjs.sendForm('service_cgyffo9', 'template_yp7j9gj', form.current, 'CbApPngOAIHNzwwgW')
-    .then((result) => {
-        console.log(result.text);
-    }, (error) => {
-        console.log(error.text);
-    });
-};
+  const sendEmail = (e) => {
+    e.preventDefault();
+    emailjs.sendForm('service_cgyffo9', 'template_yp7j9gj', form.current, 'CbApPngOAIHNzwwgW')
+      .then((result) => {
+          console.log(result.text);
+          document.querySelector('.sendOk').style.display = 'block'//send 완료 메시지
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
   return(
     <div className='contact w-100 h-100'>
       <div className='contactWrap p-4'>
@@ -65,9 +62,12 @@ console.log(form.current.namename)
                   <h4 className='mb-2 pt-2'>E-MAIL:</h4>
                   <p>sscc20111@naver.com</p>
                 </li>
-                <li>
+                <li className='mb-4'>
                   <h4 className='mb-2 pt-2'>PHONE:</h4>
                   <p>010-9255-9404</p>
+                </li>
+                <li className='sendOk' style={{display:'none'}}>
+                  <p>연락주셔서 감사합니다. <br />빠른 시일 내에 답변 드리겠습니다</p>
                 </li>
               </ul>
             </div>
@@ -151,7 +151,7 @@ const TextSet = ({ Target }) => {
 
 
 const App = (pages) => {
-  const [TargetKey,setTargetKey] = useState('')
+  const [TargetKey,setTargetKey] = useState('')//ImgSet, TextSet = targetKey 로 컨트롤
   const [ContactShow,setContactShow] = useState(false)
 
   useEffect(()=>{
