@@ -28,13 +28,6 @@ const ProjectsView = (props) => {
                 desc: ['같은 그림찾기 게임을 만들어보았습니다.'],
                 skills: ['React.js', 'JavaScript']
             };
-            case 'Wave': return {
-                link:'wave',
-                source:require('./img/cardGame.png'),
-                title:'Wave',
-                desc: ['같은 그림찾기 게임을 만들어보았습니다.'],
-                skills: ['React.js', 'JavaScript']
-            };
             case 'canvas': return {
                 link:'/',
                 source:require('./img/canvas.png'),
@@ -91,7 +84,7 @@ const ProjectsView = (props) => {
 }
 
 const Main = () => {
-    const toyProjects = ['Todo-List','CardGame','Wave'];
+    const toyProjects = ['Todo-List','CardGame'];
     const myProjects = ['canvas', 'GSAP', 'GuestBook'];
 
     const [viewimg,setViewimg] = useState('')

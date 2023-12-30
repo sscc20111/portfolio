@@ -4,77 +4,67 @@ import axios from 'axios';
 import LoginToken from './LoginToken'
 import './Login.css'
 
-const LoginForm = ({LoginHide}) => {
-    const [isRegisterFormVisible, setIsRegisterFormVisible] = useState(false);
-
-    const toggleForms = () => {
-        setIsRegisterFormVisible(!isRegisterFormVisible);
-    };
+const LoginForm = ({open}) => {
     const [dataName, setName] = useState('');
     const [dataPassword, setPassword] = useState('');
-    const [dataEmail, setEmail] = useState('');
     
     const signUpDB = async (e) => {
-    e.preventDefault();
-    if(dataName === '' || dataPassword === '' || dataEmail === ''){
-        alert('필드를 모두 작성해주세요!');
-    }else{
-        try {
-        const response = await axios.post('http://nmwoo.info/backend/sign_post.php', {
-            email: dataEmail,
-            password: dataPassword,
-            nickname: dataName,
-        });
-        if(response.data.message === 'Post saved successfully'){
-
-            toggleForms();
+        e.preventDefault();
+        if(dataName === '' || dataPassword === ''){
+            alert('필드를 모두 작성해주세요!');
         }else{
-            alert(response.data.message);
-            console.log(response.data.message);
+            try {
+                const response = await axios.post('http://nmwoo.info/backend/sign_post.php', {
+                    password: dataPassword,
+                    nickname: dataName,
+                });
+                if(response.data.message === 'Post saved successfully'){
+                    LoginToken(dataName); //회원가입 성공 토큰 발급
+                    open(e); //cover open
+
+                }else{
+                    // alert(response.data.message);
+                    loginDB(e);
+                }
+            } catch (error) {
+                console.error('Error saving post:', error);
+            }
         }
-        } catch (error) {
-        console.error('Error saving post:', error);
-        }
-    }
     };
     const loginDB = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await axios.post('http://nmwoo.info/backend/login_post.php', {
-        password: dataPassword,
-        nickname: dataName,
-        });
-        LoginHide()
-        LoginToken(dataName)
-    } catch (error) {
-        console.error('Error saving post:', error);
-    }
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://nmwoo.info/backend/login_post.php', {
+                password: dataPassword,
+                nickname: dataName,
+            });
+            if(response.data.message === 'Login Post successfully'){
+                LoginToken(dataName); //로그인 성공 토큰 발급
+                open(e); //cover open
+
+            }else{
+                alert('비밀번호가 올바르지 않습니다 ㅠ');
+            }
+        } catch (error) {
+            console.error('Error saving post:', error);
+        }
     };
 
-    const Close =() =>{
-        LoginHide()
-    }
 
     return(
-        <div className='loginBox position-fixed w-100 h-100'>
-            <div className='bgCover position-fixed w-100 h-100' style={{background:'#0000001c'}} onClick={Close}></div>
+        <div className='loginBox w-100'>
             <div className="form">
-            {isRegisterFormVisible ? (
-            <form className="register-form" onSubmit={signUpDB}>
-                <input className='p-3 mb-3' type="text" placeholder="name" value={dataName} onChange={(e) => setName(e.target.value)}/>
-                <input className='p-3 mb-3' type="password" placeholder="password" value={dataPassword} onChange={(e) => setPassword(e.target.value)}/>
-                <input className='p-3 mb-3' type="text" placeholder="email address" value={dataEmail} onChange={(e) => setEmail(e.target.value)}/>
-                <button className='p-3 mb-3' type="submit">create</button>
-                <p className="message">Already registered? <a href="#" onClick={toggleForms}>Sign In</a></p>
-            </form>
-            ) : (
-            <form className="login-form" onSubmit={loginDB}>
-                <input className='p-3 mb-3' type="text" placeholder="username" value={dataName} onChange={(e) => setName(e.target.value)}/>
-                <input className='p-3 mb-3' type="password" placeholder="password" value={dataPassword} onChange={(e) => setPassword(e.target.value)}/>
-                <button className='p-3 mb-3' type="submit">login</button>
-                <p className="message">Not registered? <a href="#" onClick={toggleForms}>Create an account</a></p>
-            </form>
-            )}
+                <form className="login-form" onSubmit={signUpDB}>
+                    <div className='userName inputBox p-3'>
+                        <input className='' type="text" placeholder="name" value={dataName} onChange={(e) => setName(e.target.value)}/>
+                        <p>님의 메모</p>
+                    </div>
+                    <div className='userSign inputBox p-3'>
+                        <p>Sign</p>
+                        <input className='' type="password" placeholder="password" value={dataPassword} onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
+                    <button className='coverOpen btn btn-sm' type="submit">방명록 쓰기</button>
+                </form>
             </div>
         </div>
     )

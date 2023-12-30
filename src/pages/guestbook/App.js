@@ -1,180 +1,196 @@
 import React, { useState, useEffect } from 'react';
+
 import axios from 'axios';
-import gsap from 'gsap';
-import { Draggable } from "gsap/Draggable";
-import { Flip } from 'gsap/Flip';
-import { Button, Container, FloatingLabel, FormControl, Stack } from 'react-bootstrap';
+import { FloatingLabel, FormControl } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
+import LoginForm from './Login/Login'
+import loginTokenExpiry from './Login/LoginTokenExpiry'
+
+import flip from './components/flip'
+import PostIt from './components/PostIt'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 
-import LoginForm from './Login/Login'
-import loginTokenExpiry from './Login/LoginTokenExpiry'
-// import { create } from 'domain';
-
-
-gsap.registerPlugin(Draggable, Flip) 
-
-const style = () => {
+const style = () => { //postit 위치 랜덤 생성
   const randomBetween = (min, max) => {
     return min + Math.ceil(Math.random() * max);
   };
-  
+
   const style = 'translate(' + randomBetween(0, window.innerWidth - 150) + 'px,' + randomBetween(0, window.innerHeight - 150) + 'px) rotate(' + randomBetween(-15, 15) + 'deg)';
   return style
 }
 
-const flip = (from, to) => {
-  const flipFrom = document.querySelector(from)
-  const flipTo = document.querySelector(to)
-  const state = Flip.getState(from + ', ' + to);
-  flipFrom.classList.toggle("flipActive");
-  flipTo.classList.toggle("flipActive");
-  Flip.from(state, {
-    duration: 0.6,
-    fade: true,
-    scale: true,
-    absolute: true,
-    toggleClass: "flipping",
-    ease: "power3.inOut"
-  });
-}
-
-const Note = ({ note, children, onRemove, drag, modify }) => {
-    useEffect(()=>{
-      Draggable.create(".note",{
-        onDragEnd: function(e) {
-          const target = e.target.closest('.note');
-          const index = target.getAttribute('data-index');
-
-          drag(e, target.style.transform, index)
-        }
-      });
-    },[drag])
-
-    const remove = () => {
-        onRemove(note.id);
-    };
-
-    const modifyTarget = (e) => {
-      const target = e.target.closest('.note')
-      const modifyTarget = `.${target.classList[1]}`
-      modify(modifyTarget, '.flipForm', note.id)
-    }
 
 
-    if(note.state){
-      return (
-          <div className={'note flipIndex' + note.id} style={note.style} data-index={note.id} data-flip-id="flipform">
-              <p className='fs-5 p-2'>{children}</p>
-              {JSON.parse(localStorage.getItem('token')) && note.user_data === JSON.parse(localStorage.getItem('token')).user_data && (
-                <span>
-                    <button onClick={modifyTarget} className="btn btn-primary glyphicon glyphicon-pencil" >수정</button>
-                    <button onClick={remove} className="btn btn-danger glyphicon glyphicon-trash" >삭제</button>
-                </span>
-              )}
-          </div>
-      );
-    }else{
-      return (
-          <div className={'note flipIndex' + note.id + ' dumyNote'} style={note.style} data-index={note.index} data-flip-id="flipform">
-              <p>{children}</p>
-              <p>{note.index}</p>
-              {JSON.parse(localStorage.getItem('token')) && note.user_data === JSON.parse(localStorage.getItem('token')).user_data && (
-                <span>
-                    <button onClick={modifyTarget} className="btn btn-primary glyphicon glyphicon-pencil" />
-                    <button onClick={remove} className="btn btn-danger glyphicon glyphicon-trash" />
-                </span>
-              )}
-          </div>
-      );
-    }
-};
-const NoteFlip = ({textsave, flipOut}) => {
-  const [noteText, setNoteText] = useState('');
-  // useEffect(()=>{
-  //   setNoteText()
-  // },[])
-  const save = (e) => {
-    textsave(e,noteText)
-    setNoteText('')
+
+const PostitCreate = ({ LoginCheck, postitSave, CreatDummy, PostitClose, Cancel}) => {
+
+  const CoverOpen = (e) => {//커버 열기
+    const activeMotion = document.querySelectorAll('.activeMotion');
+    activeMotion.forEach(element => {
+      element.classList.toggle('coverOpen');
+      element.classList.remove('coverClose');
+    });
+
+    const activeZIndex = document.querySelector('.postitCoverFront');//input 덮고있는 cover zIndex 변경
+    setTimeout(() => {
+      activeZIndex.style.zIndex = '2'; //input 덮고있는 cover zIndex 변경
+    }, 1000);
+    CreatDummy(e); //flip을 위해 더미 생성
   }
-  const cancel = () => {
-    flipOut()
+
+  const CoverClose = () => {//커버 닫기
+    const activeMotion = document.querySelectorAll('.activeMotion');
+    activeMotion.forEach(element => {
+      element.classList.toggle('coverOpen');
+      element.classList.add('coverClose');
+    });
+
+    const activeZIndex = document.querySelector('.postitCoverFront');
+    activeZIndex.style.zIndex = '3'; 
   }
+
+  const SubmitHandle = (e, postitText) => {
+    postitSave(e, postitText);
+    CoverClose();
+
+    setTimeout(() => {//닫기 모션후 실행
+      PostitClose();
+
+      const flipTo = document.querySelector('.postitForm'); //formWrap 다시 생성
+      flipTo.classList.toggle("flipActive");
+    }, 600);
+  }
+
+  const CreateCancel = () => {
+    Cancel();
+    CoverClose();
+
+    setTimeout(() => {//닫기 모션후 실행
+      PostitClose();
+    }, 600);
+  }
+
+  const date = new Date()
+  console.log(date.getDate())
+
 
   return (
-    <Container mx='auto' className='flipForm mw-70 p-4 rounded-4 position-fixed bg-warning-subtle' data-flip-id="flipform" style={{ maxWidth:'720px', zIndex:'3000'}}>
-      <Stack direction="horizontal">
-        <div className='username px-3 mb-3'>작성자</div>
-        <div className='date ms-auto px-3 mb-3'>날짜</div>
-      </Stack>
-      <FloatingLabel className='mb-4' controlId="noteText" label='방명록을 작성해주세요'>
-        <FormControl as="textarea" placeholder="Leave a comment here" style={{ height: '300px' }} value={noteText} onChange={(e) => setNoteText(e.target.value)}></FormControl>
-      </FloatingLabel>
-        <Stack direction='horizontal'>
-        <Button className='me-2 ms-auto' onClick={save}>save</Button>
-        <Button onClick={cancel}>cancel</Button>
-      </Stack>
-    </Container>
+    <div className="postitBox" data-flip-id="flipPostit">
+      <div className="postitWrap wh-100">
+        <div className="postitCover postitCoverFront wh-100">
+          <div className="coverWrap perspective wh-100">
+            <div className="cover activeMotion wh-100 coverFront">
+              <button className='postitBoxClose' onClick={PostitClose}><FontAwesomeIcon icon={faXmark} /></button>
+              <h3>STICKY NOTES</h3>
+              <LoginForm open={CoverOpen} ></LoginForm>
+            </div>
+            <div className='cover activeMotion wh-100 coverBack'></div>
+          </div>
+          <div className="shadowWrap perspective wh-100">
+            <div className="shadow activeMotion wh-100"></div>
+          </div>
+        </div>
+        <div className="postitCover postitCoverBack wh-100">
+          <div className="postitHeader">
+            <span>NAM MINWOO</span>
+            <h3>STICKY NOTES</h3>
+            <p>GUESTBOOK</p>
+          </div>
+          <div className="postitFooter">
+            <p>{date.getMonth()+1}-{date.getDate()} {date.getHours()}:{date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()}</p>
+            <p></p>
+          </div>
+        </div>
+        <div className="postitFormWrap">
+          <PostitForm SubmitHandle={SubmitHandle} CancelHandle={CreateCancel}></PostitForm>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+    </div>
+  )
+};
+
+const PostitForm = ({SubmitHandle, CancelHandle}) => {
+  const [PostItText, setPostItText] = useState('');//글 작성or수정
+
+  const Submit = (e) => {
+    SubmitHandle(e, PostItText);
+    setPostItText('');
+  }
+
+  const Cancel = () => {
+    CancelHandle();
+    setPostItText('');
+  }
+
+
+  return (
+    <div className='postitForm' data-flip-id="flipform">
+      <div className="postitTable wh-100">
+        <FloatingLabel className='' controlId="postitText" label='방명록을 작성해주세요'>
+          <FormControl as="textarea" placeholder="Leave a comment here" style={{ height: '240px' }} value={PostItText} onChange={(e) => setPostItText(e.target.value)}></FormControl>
+        </FloatingLabel>
+        <div className="buttons">
+          <button className="cancel" onClick={Cancel}>cancel</button>
+          <button className="save" onClick={Submit}>submit</button>
+        </div>
+      </div>
+    </div>
+
   )
 }
-
-const CreateBtn = ({creatNote,LoginVisible}) => {
-  const isAuthenticated = loginTokenExpiry();
-
-  return isAuthenticated ? (
-    <button className="createBtn btn btn-sm btn-success glyphicon glyphicon-plus" style={{position:'absolute', top:'90px', right:'10px'}} data-flip-id="flipform" onClick={creatNote} >글작성</button>
-  ) : (
-    <button className="createBtn2 btn btn-sm btn-success top-10px" style={{position:'absolute', top:'90px', right:'10px'}} onClick={LoginVisible} >로그인/회원가입</button>
-  )
-}
-
 
 const Board = () => {
-  const [notes, setNotes] = useState([]);
+  const [postits, setPostIts] = useState([]);
   const [id, setId] = useState(0);
   const [FlipArry, setFlip] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [isLoginTokenCheck,setisLoginTokenCheck] = useState(loginTokenExpiry()); //로그인 유무 확인 //첫 로딩때만 확인하면 됨
+  const [CreateOrModifyState, setCreateOrModifyState] = useState(''); //새 글(true) or 수정(false) //flip을 위해 필요
+
+
 
   useEffect(() => {
     fetchData();
   }, []);
 
   useEffect(() => {
-    if (notes && notes.length !== 0) {
-      setId(notes.slice(-1)[0].id);
+    if (postits && postits.length !== 0) {
+      setId(postits.slice(-1)[0].id);
     } else {
       setId(0);
-    }
-
-    localStorage.setItem('bbs_data_style', JSON.stringify(notes));//테스트용 로컬스토리지 출력
-  }, [notes]);
+    };
+  }, [postits]);
 
   const fetchData = async () => {
     try {
       const response = await axios.get('http://nmwoo.info/backend/backend.php');
-      const fetchData = response.data.map((note) => {
+      const fetchData = response.data.map((postit) => {
         return {
-          date: note.date,
-          id: note.id,
-          ip: note.ip,
-          state: Boolean(parseInt(note.state)),
-          style: {transform: note.style},
-          note: note.text,
-          user_data: note.user_data
+          date: postit.date,
+          id: postit.id,
+          ip: postit.ip,
+          state: Boolean(parseInt(postit.state)),
+          style: { transform: postit.style },
+          postit: postit.text,
+          user_data: postit.user_data
         };
       });
-      setNotes(fetchData)
+      setPostIts(fetchData);
     } catch (error) {
       console.error('Error fetching data:', error);
-    }  
-  };  
+    };
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await axios.post('http://nmwoo.info/backend/save_post.php', {
         text: 'textValue',
@@ -187,10 +203,10 @@ const Board = () => {
     }
     fetchData();
   };
-  
+
   const handleUpdate = async (e, newText, i, transform) => {
     e.preventDefault();
-    
+
     try {
       const response = await axios.post('http://nmwoo.info/backend/update_post.php', {
         text: newText,
@@ -216,87 +232,103 @@ const Board = () => {
   };
 
 
-  const creatNote = (e) => {
-    handleSubmit(e)
-    flip('.createBtn','.flipForm')
-    setFlip(['.createBtn','.flipForm'])
+
+  const creatDummyPostIt = (e) => {//더미 생성
+    handleSubmit(e);
+    setCreateOrModifyState(true); //수정or생성 판별
+    setFlip(['.flipIndex','.postitFormWrap .postitForm']);
   }
 
-  const noteSave = (e, noteText) => {
-    
-    if(FlipArry[0] === '.createBtn'){
-      console.log(id)
-      const updatedNotes = notes.filter(note => note.id === id);
-      const style = updatedNotes[0].style.transform;
-      flip('.flipIndex'+(id), FlipArry[1])
-      update(e, noteText, id, style)
-    }else{
-      console.log(FlipArry[2])
-      const updatedNotes = notes.filter(note => note.id === FlipArry[2]);
-      const style = updatedNotes[0].style.transform;
-      flip(FlipArry[0], FlipArry[1])
-      update(e, noteText, FlipArry[2], style)
-    }
-  }
+  const postitSave = (e, postitText) => {//글 등록
+    if (CreateOrModifyState === true) {//생성
+      const updatedPostIts = postits.filter(postit => postit.id === id);
+      const style = updatedPostIts[0].style.transform;
+      flip(FlipArry[0] + (id), FlipArry[1]);
 
-  const update = (e, newText, i, style) => {
-    handleUpdate(e, newText, i, style)
-  };
+      handleUpdate(e, postitText, id, style);
+    } 
+    if (CreateOrModifyState === false)  {//수정
+      const updatedPostIts = postits.filter(postit => postit.id === FlipArry[2]);
+      const style = updatedPostIts[0].style.transform;
+      flip(FlipArry[0], FlipArry[1]);
+      
+      handleUpdate(e, postitText, FlipArry[2], style);
 
-  const modify = (from, to, id) => {
-    flip(from, to)
-    setFlip([from, to, id])
-    const updatedNotes = notes.map(note => {
-      if (note.id === id) {
-        return { ...note, state:false};
-      }
-      return note;
-    });
-    setNotes(updatedNotes);
-  }
-
-  const remove = (i) => {
-    bbs_delete(i)
-  };
+      const FormBox = document.querySelector('.modifyFormBox');//form 잔존 오류 회피
+      FormBox.style.display = 'none';
   
-  const dragset = (e, transform, i) => {
-    const updatedNotes = notes.filter(note => note.id === i);
-    const noteText = updatedNotes[0].note;
-
-    update(e, noteText, i, transform)
-  }
-
-  const flipOut = () => {
-    flip(FlipArry[0], FlipArry[1])
-    if(FlipArry[0] === '.createBtn'){
-      remove(id)
-    }else{
-      const updatedNotes = notes.map(note => {
-          return { ...note, state:true};
-      });
-      setNotes(updatedNotes);
     }
   }
-const LoginVisible =() => {
-  setIsLoggedIn(true)
-}
-const LoginHide =() => {
-  setIsLoggedIn(false)
-}
 
-    return (
-      <div className="board">
-        {isLoggedIn && <LoginForm LoginHide={LoginHide} ></LoginForm>}
-        {notes.map((note) => (
-          <Note key={note.id} note={note} drag={dragset} modify={modify} onRemove={remove}>
-              {note.note}
-          </Note>
-        ))}
-        <CreateBtn creatNote={creatNote} LoginVisible={LoginVisible}></CreateBtn>
-        <NoteFlip textsave={noteSave} flipOut={flipOut}></NoteFlip>
+  const modify = (from, to, id) => {//수정
+    const FormBox = document.querySelector('.modifyFormBox');//form 잔존 오류 회피
+    FormBox.style.display = 'block';
+
+    flip(from, to);
+    setFlip([from, to, id]); //수정or취소 후 원위치
+    setCreateOrModifyState(false); //수정or생성 판별
+
+    const updatedPostIts = postits.map(postit => {
+      if (postit.id === id) {
+        return { ...postit, state: false };
+      }
+      return postit;
+    });
+    setPostIts(updatedPostIts);
+  }
+
+  const Cancel = () => {//생성 취소, 수정 취소
+    if (CreateOrModifyState === true)   {//생성
+      bbs_delete(id);
+    } 
+    if (CreateOrModifyState === false)  {//수정
+      setTimeout(() => {//form 잔존 오류 회피
+        const FormBox = document.querySelector('.modifyFormBox');
+        FormBox.style.display = 'none';
+      }, 600);
+  
+      flip(FlipArry[0], FlipArry[1]);
+      const updatedPostIts = postits.map(postit => {
+        if (postit.id === id) {
+          return { ...postit, state: true };
+        }
+        return postit;
+      });
+      setPostIts(updatedPostIts);
+    }
+  }
+
+  const dragset = (e, transform, i) => {//포스팃 위치변경
+    const updatedPostIts = postits.filter(postit => postit.id === i);
+    const postitText = updatedPostIts[0].postit;
+
+    handleUpdate(e, postitText, i, transform);
+  }
+
+  const PostitOpen_Close = () => {
+    flip('.postitBtn','.postitBox');
+  }
+
+  return (
+    <div className="board">
+      {postits.map((postit) => (
+        <PostIt key={postit.id} postit={postit} drag={dragset} modify={modify} onRemove={bbs_delete}>
+          {postit.postit}
+        </PostIt>
+      ))}
+      <PostitCreate LoginCheck={isLoginTokenCheck} postitSave={postitSave} CreatDummy={creatDummyPostIt} PostitClose={PostitOpen_Close} Cancel={Cancel}>
+      </PostitCreate>
+      <div className='postitBtn' data-flip-id="flipPostit" onClick={PostitOpen_Close}>
+        <h4>STICKY NOTES</h4>
       </div>
-    );
+      <div className='modifyFormBox'>
+        <PostitForm SubmitHandle={postitSave} CancelHandle={Cancel}></PostitForm>
+      </div>
+
+    </div>
+  );
 };
+
 
 
 export default Board;
